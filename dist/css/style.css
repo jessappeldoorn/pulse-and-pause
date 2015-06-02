@@ -1,4 +1,13 @@
-.jumbotron {
-  background: #000 url('https://ununsplash.imgix.net/photo-1428908728789-d2de25dbd4e2?fit=crop&fm=jpg&h=700&q=75&w=1050') center center fixed;
-  background-size: cover;
-  margin-top: auto 0; }
+html {
+  background-color: #E62F17; }
+
+.navbar-header-link h3 {
+  color: #FCDED4;
+  font-family: 'Abril Fatface', cursive;
+  font-size: 30px; }
+
+.header {
+  background-color: #E62F17; }
+
+.timer {
+  background-color: #E62F17; }
