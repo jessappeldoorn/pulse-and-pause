@@ -1,5 +1,5 @@
-html {
-  background-color: #E62F17; }
+body {
+  background-color: #B82C11; }
 
 .navbar-header-link h3 {
   color: #FCDED4;
@@ -7,7 +7,61 @@ html {
   font-size: 30px; }
 
 .header {
-  background-color: #E62F17; }
+  background-color: #B82C11; }
 
-.timer {
-  background-color: #E62F17; }
+.information {
+  background-color: #453835;
+  margin-bottom: 0px;
+  padding-bottom: 0px; }
+  .information h4 {
+    font-size: 45px;
+    text-align: center;
+    font-family: 'Josefin Sans', sans-serif;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    color: #FCDED4; }
+
+.hero-content {
+  margin-top: 0px;
+  background-color: #B82C11;
+  text-align: center; }
+  .hero-content .date {
+    color: #FCDED4;
+    font-family: 'Josefin Sans', sans-serif;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    opacity: 0.75;
+    margin-bottom: 5px; }
+  .hero-content .countdown {
+    color: #FCDED4;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 300px;
+    padding-top: 0px;
+    margin-top: 0px; }
+  .hero-content .btn-default {
+    background-color: #B82C11;
+    color: #FCDED4; }
+  .hero-content .btn-default:hover {
+    background-color: #FCDED4;
+    color: black; }
+
+.start-button {
+  padding-top: 0px;
+  padding-bottom: 80px; }
+
+.second-section {
+  padding-top: 80px;
+  margin-top: 5px;
+  background-color: #FCDED4; }
+
+.glyphicon-time {
+  font-size: 90px; }
+
+.glyphicon-fire {
+  font-size: 90px; }
+
+.glyphicon-phone {
+  font-size: 90px; }
+
+.glyphicon-home {
+  font-size: 90px; }

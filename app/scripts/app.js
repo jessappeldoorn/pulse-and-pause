@@ -30,14 +30,43 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
   var ref = new Firebase("https://pulseandpause.firebaseio.com");
 
 // create a synchronized (psuedo read-only) array
-  $scope.projects = $firebaseArray(ref);
+  $scope.tasks = $firebaseArray(ref);
   var fireTime = Firebase.ServerValue.TIMESTAMP;
+
+  $scope.date = new Date ();
+
+  $scope.timer = "25:00";
+  $scope.mode = "Start";
   
-  $scope.startTimer = function() { // 
-    var currentTimme = new Date();
+  $scope.countDown = function () {
+    $scope.timer--;
+    $scope.timeout = $timeout(countdown, 1000);
+  }
+  
+  $scope.startTimer = function() {
+    $scope.timer--;
+    $scope.timeout = $timeout(countdown, 1000);
+  }
+  
+  $scope.stopTimer = function() {
+    $timeout.cancel($scope.timeout);
+  };
+
+ $scope.toggleTimer = function () {
+    console.log("start timer test");
+
+    if ($scope.mode === 'Start') {
+     //   startTimer();
+        $scope.mode = 'Stop';
+    } else {
+       // stopTimer();
+        $scope.mode = 'Start'
+    };
+        console.log("start timer test");
+
 
 };
-
+  //$interval( function(){ $scope.startTimer(); }, 25000);
 
 
 }]);

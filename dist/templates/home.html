@@ -1,26 +1,19 @@
-<div class="container">
-  <div class="row">
-    <div class="col-lg-6 col-lg-offset-3">
+<div class="hero-content">
 
-      <div class="date">
-        <span></span>
-      </div>
+  <div class="stopwatch">
+    <div class="date">
+      <h3> {{ date | date: 'fullDate' }} </h3>
+    </div>
+    <div class="countdown">
+      <span class="timer"> {{ timer }} </span>
+    </div>
+  </div> <!-- end of stopwatch -->
 
-      <div class="timer">
-        <span></span>
-      </div>
-
-      <div class="start-button">
-        <button type="submit" ng-click"startTimer()" ng-bind="mode">Start</button>
-      </div>
-
-    </div> <!-- end of col-lg-6 -->
-  </div> <!-- end of row -->
-</div>  <!-- end of container -->
-
-
-
-<div class="information">
+  <div class="start-button">
+    <button class="btn btn-default" type="submit" ng-click="toggleTimer()"> {{ mode }} </button>
+  </div>
 
 </div>
+
+
 

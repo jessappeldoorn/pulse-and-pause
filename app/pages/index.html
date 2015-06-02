@@ -14,29 +14,72 @@
 </head>
 <body>
 
-    <nav class="header">
-      <div class="container-fluid">
-        <div class='navbar-header'> <!-- Nav Bar -->
-          <div class="nav navbar-nav navbar-left">
-            <li class="navbar-header-link"><a ui-sref='home'><h3>Pulse + Pause</h3></a></li>
+  <nav class="header">
+    <div class="container-fluid">
+      <div class='navbar-header'> <!-- Nav Bar -->
+        <div class="nav navbar-nav navbar-left">
+          <li class="navbar-header-link"><a ui-sref='home'><h3>pulse + pause</h3></a></li>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <nav>
+
+  <div ui-view></div>
+
+  <!-- <nav class="navbar">
+    <div class="nav navbar">
+      <ul>
+        <li class="links"><a ui-sref='dashboard' ng-class=><strong>Dashboard</strong></a></li>
+        <li class="links"><a ui-sref='home'><strong>Calendar</strong></a></li>
+        <li class="links"><a ui-sref='timer'><strong>Timer</strong></a></li>
+        <li class="links"><a ui-sref='profile'><span class="glyphicon glyphicon-user"></span></a></li>
+      </ul>
+    </div>
+  </nav> -->
+
+  <div class="information">
+    <h4>Move rhythmically between spending and renewing your energy</h4>
+  </div>
+
+  <div class="second-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">      
+          <div class="glyphicon glyphicon-time"></div>
+          <div class="how-to">
+            <h3>Work with time, not against it.</h3>
+            <p>For many people, time is an enemy. We race against the clock to finish assignments and meet deadlines. The Pomodoro Technique teaches you to work with time, instead of struggling against it. A revolutionary time management system, it is at once deceptively simple to learn and life-changing to use.</p>
+          </div>
+        </div>
+
+        <div class="col-md-3">      
+          <div class="glyphicon glyphicon-fire"></div>
+          <div class="how-to">
+            <h3>Eliminate Burnout</h3>
+            <p>Essential to the Pomodoro Technique is the notion that taking short, scheduled breaks while working eliminates the “running on fumes” feeling you get when you’ve pushed yourself too hard. It’s impossible to over work when you stick to the system. You may end up taking fewer sick days, too!</p>
+          </div>
+        </div>
+
+        <div class="col-md-3">      
+          <div class="glyphicon glyphicon-phone"></div>
+          <div class="how-to">
+            <h3>Manage distractions</h3>
+            <p>Whether it’s a call, a Facebook message, or suddenly realizing you need to change the oil in your car, many distracting thoughts and events come up when you’re at work. The Pomodoro Technique will help you log your distractions and order them according to priority levels. Often, they can wait.</p>
+          </div>
+        </div>
+
+        <div class="col-md-3">     
+          <div class="glyphicon glyphicon-home"></div>
+          <div class="how-to">
+            <h3>Create a better work/life balance</h3>
+            <p>Most of us are intimately acquainted with the guilt that comes from procrastinating. If we haven’t had a productive day, it’s pretty easy to end up feeling like we can’t enjoy our free time. Becoming a Pomodoro Master involves creating an effective timetable, allowing you to truly enjoy your time off.</p>
           </div>
         </div>
       </div>
-    </nav>
-    <nav>
+    </div>
+  </div>
 
-
-    <div class="timer" ui-view></div>
-
-          <div class="nav navbar">
-        <ul>
-          <li class="links"><a ui-sref='dashboard' ng-class=><strong>Dashboard</strong></a></li>
-          <li class="links"><a ui-sref='home'><strong>Calendar</strong></a></li>
-          <li class="links"><a ui-sref='timer'><strong>Timer</strong></a></li>
-          <li class="links"><a ui-sref='profile'><span class="glyphicon glyphicon-user"></span></a></li>
-        </ul>
-      </div>
-    </nav>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
     <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
