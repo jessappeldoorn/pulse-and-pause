@@ -1,39 +1,43 @@
-//html {
-//background-color: #6445FF;
-//}
-
-//#E62F17
-
 body {
   background-color: #B82C11;
 }
 
 .navbar-header-link h3 {
   color: #FCDED4;
-  font-family: 'Abril Fatface', cursive;
-  // font-family: 'Lato', sans-serif;
+  font-family: 'Droid Serif', serif;
   font-size: 30px;
 
+  span {
+    color: #403E3D
+  }
 }
 
 .header {
   background-color: #B82C11;
-}
 
-.information {
-  background-color: #453835;
-  margin-bottom: 0px;
-  padding-bottom: 0px;
-
-  h4 {
-    font-size: 45px;
-    text-align: center;
-    font-family: 'Josefin Sans', sans-serif;
-    padding-top: 40px;
-    padding-bottom: 40px;
+  .glyphicon-menu-hamburger {
+    font-size: 20px;
+    padding-right: 30px;
+    padding-top: 20px;
     color: #FCDED4;
+    opacity: .75;
   }
 }
+
+.section-head {
+  text-align: center;
+  height: 0px;
+
+  .glyphicon-triangle-bottom {
+    color: #B82C11;
+    font-size: 40px;
+    text-align: center;
+    height: 0px;
+    line-height: .75;
+  }
+}
+
+
 
 .hero-content {
   margin-top: 0px;
@@ -42,19 +46,20 @@ body {
 
   .date {
     color: #FCDED4;
-    font-family: 'Josefin Sans', sans-serif;
+    font-family: 'Oswald', sans-serif;
     margin-bottom: 0px;
     padding-bottom: 0px;
-    opacity: .75;
+    opacity: .50;
     margin-bottom: 5px;
 }
 
     .countdown {
       color: #FCDED4;
-      font-family: 'Josefin Sans', sans-serif;
+      font-family: 'Oswald', sans-serif;
       font-size: 300px;
       padding-top: 0px;
       margin-top: 0px;
+      opacity: .75;
 
   }
 
@@ -77,25 +82,66 @@ body {
 }
 
 .second-section {
-  padding-top: 80px;
+  padding-top: 20px;
   margin-top: 5px;
   background-color: #FCDED4;
+
+    h4 {
+    font-size: 34px;
+    text-align: center;
+    font-family: 'Droid Serif', serif;
+    padding-top: 40px;
+    padding-bottom: 60px;
+    
+   
+  }
+
+    h3 {
+      padding-bottom: 20px;
+      font-family: 'Oswald', sans-serif;
+      font-style: bold;
+      font-size: 24px;
+    }
+
+    p {
+      padding-bottom: 50px;
+      font-family: 'Droid Serif', serif;
+      font-size: 16px;
+    }
 }
 
 .glyphicon-time {
   font-size: 90px;
+  color: #C4AAA1
+
 }
 
 .glyphicon-fire {
   font-size: 90px;
+  color: #C4AAA1
+
 }
 
 .glyphicon-phone {
   font-size: 90px;
+  color: #C4AAA1
+ 
 }
 
 .glyphicon-home {
   font-size: 90px;
+  color: #C4AAA1
+ 
+}
+
+.col-md-3 {
+  text-align: center;
+}
+
+
+.third-section {
+  background-color: #C4AAA1;
+
 }
   //font-family: font-family: 'Josefin Sans', sans-serif;
   //color: #FCDED4;

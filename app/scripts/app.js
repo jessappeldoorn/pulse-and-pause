@@ -30,46 +30,61 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
   var ref = new Firebase("https://pulseandpause.firebaseio.com");
 
 // create a synchronized (psuedo read-only) array
-  $scope.tasks = $firebaseArray(ref);
-  var fireTime = Firebase.ServerValue.TIMESTAMP;
-
+ // $scope.tasks = $firebaseArray(ref);
+ // var fireTime = Firebase.ServerValue.TIMESTAMP;
   $scope.date = new Date ();
+  $scope.timer = "READY";
+  $scope.mode = "Ready";
+  
 
-  $scope.timer = "25:00";
-  $scope.mode = "Start";
+  var timeEnd = new Date().setMilliseconds(1502000);
   
-  $scope.countDown = function () {
-    $scope.timer--;
-    $scope.timeout = $timeout(countdown, 1000);
-  }
-  
+  //timeEnd = 0;
+
   $scope.startTimer = function() {
-    $scope.timer--;
-    $scope.timeout = $timeout(countdown, 1000);
-  }
-  
-  $scope.stopTimer = function() {
-    $timeout.cancel($scope.timeout);
+    console.log('started timer');
+    $scope.mode = "Started";
+   
+     var timeStart = new Date().getTime();  
+      var time = timeEnd - timeStart;
+      $scope.timer = time;
+    
+
+      if( timeStart === timeEnd ){
+        $scope.timer = time;
+      };
+    };
+
+  $scope.resetTimer = function() {
+    console.log('reset timer');
+    $interval.cancel(counter);
+    $scope.mode = "Reset";
+    $scope.startTimer();
+
   };
 
+
  $scope.toggleTimer = function () {
-    console.log("start timer test");
+  console.log('clicked');
+  var counter = $interval( function(){ $scope.startTimer(); }, 1000);
 
-    if ($scope.mode === 'Start') {
-     //   startTimer();
-        $scope.mode = 'Stop';
+    // on start run startTimer
+
+    if ($scope.mode === 'Ready') {
+      $scope.startTimer();
+
     } else {
-       // stopTimer();
-        $scope.mode = 'Start'
+      $scope.resetTimer();
+        
     };
-        console.log("start timer test");
-
-
 };
   //$interval( function(){ $scope.startTimer(); }, 25000);
 
 
 }]);
+
+// Start a new work session.
+// Click the reset button. Verify that Bloctime resets the timer, the text and the button.
 
 app.controller('Timer.controller', ['$scope', '$firebaseArray', function($scope, $firebaseArray) {
   var ref = new Firebase("https://pulseandpause.firebaseio.com");
@@ -87,3 +102,24 @@ app.controller('Dashboard.controller', ['$scope', '$firebaseArray', function($sc
 
 
 }]);
+
+app.directive('ngStopwatch', ['$interval', function($interval) {
+  return {
+    templateUrl: '/templates/directives/stopwatch.html',
+    replace: true,
+    controller: 'Home.controller',
+    restrict: 'AE',
+
+    scope: {}, // Creates a scope that exists only in this directive.
+    
+
+
+         //$interval( function(){ $scope.startTimer(); }, 25000);
+};
+}]);
+
+
+
+
+
+
