@@ -2,7 +2,7 @@
 
   <div class="stopwatch">
     <div class="date">
-      <h3> {{ date | date: 'fullDate' }} </h3>
+      <h3> {{ timer.date | date: 'fullDate' }} </h3>
     </div>
     <ng-stopwatch></ng-stopwatch>
    <!-- <div class="countdown">
@@ -11,7 +11,7 @@
   </div> <!-- end of stopwatch -->
 
   <div class="start-button">
-    <button class="btn btn-default" type="submit" ng-click="toggleTimer()"> {{ mode }} </button>
+    <button class="btn btn-default" type="submit" ng-click="startTimer()"> {{ timer.mode }} </button>
   </div>
 
 </div>

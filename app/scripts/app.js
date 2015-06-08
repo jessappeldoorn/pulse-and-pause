@@ -27,56 +27,55 @@ var app = angular.module("Pulseandpause", ["firebase", "ui.router"]);
 
 // home controller
 app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$timeout', function($scope, $firebaseArray, $interval, $timeout){
+  // create a synchronized (psuedo read-only) array
   var ref = new Firebase("https://pulseandpause.firebaseio.com");
-
-// create a synchronized (psuedo read-only) array
- // $scope.tasks = $firebaseArray(ref);
+  var timeEnd = 1500000;
+  var counter;
  // var fireTime = Firebase.ServerValue.TIMESTAMP;
-  $scope.date = new Date ();
-  $scope.timer = "READY";
-  $scope.mode = "Ready";
-  
-
-  var timeEnd = new Date().setMilliseconds(1502000);
-  
+  $scope.timer = {
+    date: new Date (),
+    timer: "READY",
+    mode: "Ready"
+  };
+  // $scope.tasks = $firebaseArray(ref);
   //timeEnd = 0;
 
   $scope.startTimer = function() {
     console.log('started timer');
-    $scope.mode = "Started";
-   
-     var timeStart = new Date().getTime();  
-      var time = timeEnd - timeStart;
-      $scope.timer = time;
-    
+    $scope.timer.mode = "Started";
+    $scope.timer.timer = timeEnd;
 
-      if( timeStart === timeEnd ){
-        $scope.timer = time;
-      };
-    };
+    var timeStart = undefined;
+    var time = undefined;
+
+    counter = $interval(function(){ 
+      if ( $scope.timer.mode === 'Started' ) {
+        timeStart = new Date().getTime();  
+        time = timeEnd - timeStart;
+
+        console.log('timeStart ' + timeStart + 'time: ' + time);
+
+        $scope.timer.timer = time;
+
+        if ( timeStart === timeEnd ){
+          $scope.timer.timer = time;
+        };
+      }
+    }, 1000);    
+  };
 
   $scope.resetTimer = function() {
     console.log('reset timer');
-    $interval.cancel(counter);
-    $scope.mode = "Reset";
+    // reset counting
     $scope.startTimer();
-
   };
 
-
- $scope.toggleTimer = function () {
+ $scope.stopTime = function () {
   console.log('clicked');
-  var counter = $interval( function(){ $scope.startTimer(); }, 1000);
-
-    // on start run startTimer
-
-    if ($scope.mode === 'Ready') {
-      $scope.startTimer();
-
-    } else {
-      $scope.resetTimer();
-        
-    };
+  // on start run startTimer
+  if ($scope.timer.mode === 'Started' ) {
+    $interval.cancel( counter );
+  } 
 };
   //$interval( function(){ $scope.startTimer(); }, 25000);
 
@@ -108,13 +107,7 @@ app.directive('ngStopwatch', ['$interval', function($interval) {
     templateUrl: '/templates/directives/stopwatch.html',
     replace: true,
     controller: 'Home.controller',
-    restrict: 'AE',
-
-    scope: {}, // Creates a scope that exists only in this directive.
-    
-
-
-         //$interval( function(){ $scope.startTimer(); }, 25000);
+    restrict: 'AE'
 };
 }]);
 
