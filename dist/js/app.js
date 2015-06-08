@@ -36,14 +36,15 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
   $scope.timer = {
     date: new Date (),
     timer: "READY",
-    mode: "Start"
+    mode: "Start Working",
+    onBreak: false
   };
   // $scope.tasks = $firebaseArray(ref);
   //timeEnd = 0;
 
-  $scope.startTimer = function() {
-    console.log('started timer');
-    $scope.timer.mode = "Reset";
+  $scope.startWorkTimer = function() {
+    console.log('started work');
+    $scope.timer.mode = "Reset Work Timer";
     $scope.timer.timer = timeEnd;
 
     var timeStart = undefined;
@@ -51,7 +52,7 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
     timeEnd = new Date().setMilliseconds(1502000);
 
     counter = $interval(function(){ 
-      if ( $scope.timer.mode === 'Reset' ) {
+      if ( $scope.timer.mode === 'Reset Work Timer' ) {
         timeStart = new Date().getTime();  
         time = timeEnd - timeStart;
 
@@ -61,20 +62,55 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
 
         if (time < 250){
           $scope.timer.timer = "READY";
-          $scope.timer.mode = "Start";
+          $scope.timer.mode = "Start Break";
+          $scope.timer.onBreak = true;
         };
       }
     }, 1000);    
   };
 
+  $scope.startBreakTimer = function() {
+    console.log('started break');
+    $scope.timer.mode = "Reset Break Timer";
+    $scope.timer.timer = timeEnd;
+
+        $interval.cancel(counter);
+    timeEnd = " ";
+    $scope.timer.date = new Date();
+    $scope.timer.timer = "READY";
+
+    var timeStart = undefined;
+    var time = undefined;
+    timeEnd = new Date().setMilliseconds(302000);
+
+    counter = $interval(function(){ 
+      if ( $scope.timer.mode === 'Reset Break Timer' ) {
+        timeStart = new Date().getTime();  
+        time = timeEnd - timeStart;
+
+       // console.log('timeStart: ' + timeStart + " " + 'time: ' + time);
+
+        $scope.timer.timer = time;
+
+        if (time < 250){
+          $scope.timer.timer = "READY";
+          $scope.timer.mode = "Start Working";
+          $scope.timer.onBreak = false;
+        };
+      }
+    }, 1000); 
+  }
+
   $scope.toggleTimer = function() {
-    if($scope.timer.mode === "Start") {
-      $scope.startTimer();
+    if($scope.timer.mode === "Start Working") {
+      $scope.startWorkTimer();
+    } else if ($scope.timer.mode === "Start Break") {
+      $scope.startBreakTimer(); 
     } else {
       $scope.resetTimer();
     }
-  }
-
+  };
+  
   $scope.resetTimer = function() {
     console.log('reset timer');
     // reset counting
@@ -82,19 +118,21 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
     timeEnd = " ";
     $scope.timer.date = new Date();
     $scope.timer.timer = "READY";
-    $scope.timer.mode = "Start";
 
+      if ($scope.timer.mode === "Reset Work Timer") {
+        $scope.timer.mode = "Start Working";
+      } else if ($scope.timer.mode === "Reset Break Timer") {
+        $scope.timer.mode = "Start Break";
+      } 
   };
 
- $scope.stopTime = function () {
+ /*$scope.stopTime = function () {
   console.log('clicked');
   // on start run startTimer
   if ($scope.timer.mode === 'Reset' ) {
     $interval.cancel( counter );
   } 
-};
-  //$interval( function(){ $scope.startTimer(); }, 25000);
-
+};*/
 
 }]);
 
