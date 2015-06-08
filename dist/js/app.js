@@ -30,51 +30,66 @@ var app = angular.module("Pulseandpause", ["firebase", "ui.router"]);
 app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$timeout', function($scope, $firebaseArray, $interval, $timeout){
   // create a synchronized (psuedo read-only) array
   var ref = new Firebase("https://pulseandpause.firebaseio.com");
-  var timeEnd = 1500000;
-  var counter;
+  var timeEnd,
+  counter;
  // var fireTime = Firebase.ServerValue.TIMESTAMP;
   $scope.timer = {
     date: new Date (),
     timer: "READY",
-    mode: "Ready"
+    mode: "Start"
   };
   // $scope.tasks = $firebaseArray(ref);
   //timeEnd = 0;
 
   $scope.startTimer = function() {
     console.log('started timer');
-    $scope.timer.mode = "Started";
+    $scope.timer.mode = "Reset";
     $scope.timer.timer = timeEnd;
 
     var timeStart = undefined;
     var time = undefined;
+    timeEnd = new Date().setMilliseconds(1502000);
 
     counter = $interval(function(){ 
-      if ( $scope.timer.mode === 'Started' ) {
+      if ( $scope.timer.mode === 'Reset' ) {
         timeStart = new Date().getTime();  
         time = timeEnd - timeStart;
 
-        console.log('timeStart ' + timeStart + 'time: ' + time);
+       // console.log('timeStart: ' + timeStart + " " + 'time: ' + time);
 
         $scope.timer.timer = time;
 
-        if ( timeStart === timeEnd ){
-          $scope.timer.timer = time;
+        if (time < 250){
+          $scope.timer.timer = "READY";
+          $scope.timer.mode = "Start";
         };
       }
     }, 1000);    
   };
 
+  $scope.toggleTimer = function() {
+    if($scope.timer.mode === "Start") {
+      $scope.startTimer();
+    } else {
+      $scope.resetTimer();
+    }
+  }
+
   $scope.resetTimer = function() {
     console.log('reset timer');
     // reset counting
-    $scope.startTimer();
+    $interval.cancel(counter);
+    timeEnd = " ";
+    $scope.timer.date = new Date();
+    $scope.timer.timer = "READY";
+    $scope.timer.mode = "Start";
+
   };
 
  $scope.stopTime = function () {
   console.log('clicked');
   // on start run startTimer
-  if ($scope.timer.mode === 'Started' ) {
+  if ($scope.timer.mode === 'Reset' ) {
     $interval.cancel( counter );
   } 
 };
