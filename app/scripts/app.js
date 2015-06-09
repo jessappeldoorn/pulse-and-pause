@@ -30,25 +30,37 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
   // create a synchronized (psuedo read-only) array
   var ref = new Firebase("https://pulseandpause.firebaseio.com");
   var timeEnd,
-  counter;
+  counter,
+  count;
  // var fireTime = Firebase.ServerValue.TIMESTAMP;
   $scope.timer = {
     date: new Date (),
     timer: "READY",
     mode: "Start Working",
-    onBreak: false
+    onBreak: false,
+    working: false,
+    session: 0
   };
   // $scope.tasks = $firebaseArray(ref);
   //timeEnd = 0;
 
   $scope.startWorkTimer = function() {
     console.log('started work');
+
+    $interval.cancel(counter);
+    timeEnd = " ";
+    $scope.timer.date = new Date();
+    $scope.timer.timer = "READY";
+  
     $scope.timer.mode = "Reset Work Timer";
     $scope.timer.timer = timeEnd;
+    $scope.timer.session += 1;
+    $scope.timer.working = true;
 
-    var timeStart = undefined;
-    var time = undefined;
-    timeEnd = new Date().setMilliseconds(1502000);
+    var timeStart = undefined,
+    time = undefined;
+    timeEnd = new Date().setMilliseconds(7000); //1502000
+    
 
     counter = $interval(function(){ 
       if ( $scope.timer.mode === 'Reset Work Timer' ) {
@@ -59,13 +71,21 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
 
         $scope.timer.timer = time;
 
-        if (time < 250){
+        if (time < 250 && $scope.timer.session < 4) {
           $scope.timer.timer = "READY";
           $scope.timer.mode = "Start Break";
           $scope.timer.onBreak = true;
-        };
-      }
-    }, 1000);    
+          $scope.timer.working = false;
+          console.log($scope.timer.session);
+        } else if (time < 250 && $scope.timer.session === 4) {
+            $scope.timer.timer = "READY";
+            $scope.timer.mode = "Start Long Break";
+            $scope.timer.onBreak = true;
+            $scope.timer.working = false;
+            console.log("On a long break" + " " + $scope.timer.session);
+            $scope.timer.session = 1;
+        }};
+    }, 1000);  
   };
 
   $scope.startBreakTimer = function() {
@@ -73,14 +93,15 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
     $scope.timer.mode = "Reset Break Timer";
     $scope.timer.timer = timeEnd;
 
-        $interval.cancel(counter);
+    $interval.cancel(counter);
     timeEnd = " ";
     $scope.timer.date = new Date();
     $scope.timer.timer = "READY";
+    $scope.timer.working = false;
 
     var timeStart = undefined;
     var time = undefined;
-    timeEnd = new Date().setMilliseconds(302000);
+    timeEnd = new Date().setMilliseconds(7000); //302000
 
     counter = $interval(function(){ 
       if ( $scope.timer.mode === 'Reset Break Timer' ) {
@@ -100,12 +121,46 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
     }, 1000); 
   }
 
+    $scope.startLongBreakTimer = function() {
+    console.log('started long break');
+    $scope.timer.mode = "Reset Long Break Timer";
+    $scope.timer.timer = timeEnd;
+
+    $interval.cancel(counter);
+    timeEnd = " ";
+    $scope.timer.date = new Date();
+    $scope.timer.timer = "READY";
+    $scope.timer.working = false;
+
+    var timeStart = undefined;
+    var time = undefined;
+    timeEnd = new Date().setMilliseconds(1802000); //302000
+
+    counter = $interval(function(){ 
+      if ( $scope.timer.mode === 'Reset Long Break Timer' ) {
+        timeStart = new Date().getTime();  
+        time = timeEnd - timeStart;
+
+       // console.log('timeStart: ' + timeStart + " " + 'time: ' + time);
+
+        $scope.timer.timer = time;
+
+        if (time < 250){
+          $scope.timer.timer = "READY";
+          $scope.timer.mode = "Start Working";
+          $scope.timer.onBreak = false;
+        };
+      }
+    }, 1000); 
+  }
+
   $scope.toggleTimer = function() {
     if($scope.timer.mode === "Start Working") {
       $scope.startWorkTimer();
-    } else if ($scope.timer.mode === "Start Break") {
+    } else if ($scope.timer.mode === "Start Break" ) {
       $scope.startBreakTimer(); 
-    } else {
+    } else if ($scope.timer.mode === "Start Long Break") {
+      $scope.startLongBreakTimer() } else {
       $scope.resetTimer();
     }
   };
