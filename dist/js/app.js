@@ -24,16 +24,50 @@ var app = angular.module("Pulseandpause", ["firebase", "ui.router"]);
      templateUrl: '/templates/dashboard.html'
    });
 
+   $stateProvider.state('login', {
+     url: '/login',
+     controller: 'Login.controller',
+     templateUrl: '/templates/login.html'
+   });
+
  }]);
 
 // home controller
-app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$timeout', function($scope, $firebaseArray, $interval, $timeout){
-  // create a synchronized (psuedo read-only) array
-  var ref = new Firebase("https://pulseandpause.firebaseio.com");
+app.controller('Home.controller', ['$scope', '$firebaseArray','Tasks', '$interval', '$timeout', function($scope, $firebaseArray, Tasks, $interval, $timeout){
+
+  var fireTime = Firebase.ServerValue.TIMESTAMP;
   var timeEnd,
   counter,
+  time,
   count;
- // var fireTime = Firebase.ServerValue.TIMESTAMP;
+
+  var timerSound = new buzz.sound( "/sounds/ding1", {
+    format: "mp3",
+    preload: true
+  });
+
+  console.log($scope.allTasks);
+
+  $scope.list = [];
+  $scope.submit = function() {
+    if ($scope.newTaskText) {
+      $scope.list.push(this.newTaskText);
+    }
+  };
+
+  $scope.addTask = function() { // add task to history list
+    $scope.newTask = {
+      text: $scope.newTaskText,
+      created: fireTime,
+    };
+
+    $scope.submit();
+
+    $scope.tasks.$add(newTask); // Push into array
+    $scope.newTaskText = "";
+  };
+
+
   $scope.timer = {
     date: new Date (),
     timer: "READY",
@@ -78,6 +112,7 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
           $scope.timer.onBreak = true;
           $scope.timer.working = false;
           console.log($scope.timer.session);
+          timerSound.play();
         } else if (time < 250 && $scope.timer.session === 4) {
             $scope.timer.timer = "READY";
             $scope.timer.mode = "Start Long Break";
@@ -181,6 +216,14 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
       } 
   };
 
+    $scope.$watch(function(scope) { return scope.timer.timer },
+      function(newValue, oldValue) { console.log("something happened"), timerSound.play(); }
+    );
+
+
+    
+
+
  /*$scope.stopTime = function () {
   console.log('clicked');
   // on start run startTimer
@@ -216,10 +259,26 @@ app.directive('ngStopwatch', ['$interval', function($interval) {
     templateUrl: '/templates/directives/stopwatch.html',
     replace: true,
     controller: 'Home.controller',
-    restrict: 'AE'
+    restrict: 'E'
 };
+
+
 }]);
 
+app.factory('Tasks', ['$firebaseObject', '$firebaseArray', function($firebaseObject, $firebaseArray) {
+
+  // create a synchronized (psuedo read-only) array
+  var ref = new Firebase("https://pulseandpause.firebaseio.com");
+
+  
+var tasks = $firebaseArray(ref);
+
+
+  return {
+    allTasks: tasks
+  }
+
+}]);
 
 
 

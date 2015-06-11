@@ -2,6 +2,10 @@ body {
   background-color: #B82C11;
 }
 
+.navbar-header-link a:hover, a:focus, a:active {
+  text-decoration: none;
+}
+
 .navbar-header-link h3 {
   color: #FCDED4;
   font-family: 'Droid Serif', serif;
@@ -14,13 +18,43 @@ body {
 
 .header {
   background-color: #B82C11;
+  height: 80px;
 
   .glyphicon-menu-hamburger {
     font-size: 20px;
-    padding-right: 30px;
-    padding-top: 20px;
+    margin-left: 0px;
     color: #FCDED4;
     opacity: .75;
+
+    ul {
+     background-color: #B82C11;
+    }
+  }
+
+
+}
+
+.dropdown ul {
+  background-color: #FCDED4;
+   font-family: 'Droid Serif', serif;
+
+   a:hover {
+    color: #FCDED4;
+   }
+}
+
+.navbar-right {
+  height: 80px;
+  width: 150px;
+
+
+  .dropdown {
+    height: 80px;
+
+
+    .login {
+      height: 80px;
+    }
   }
 }
 
@@ -61,6 +95,10 @@ body {
       margin-top: 0px;
       opacity: .75;
 
+      h3 {
+        font-family: 'Droid Serif', serif; 
+      }
+
   }
 
       .btn-default {
@@ -86,15 +124,23 @@ body {
   margin-top: 5px;
   background-color: #FCDED4;
 
-    h4 {
-    font-size: 34px;
+    h5 {
+    font-size: 24px;
     text-align: center;
     font-family: 'Droid Serif', serif;
-    padding-top: 40px;
+    padding-top: 0px;
     padding-bottom: 60px;
     
    
   }
+    h2 {
+    font-size: 60px;
+    text-align: center;
+    font-family: 'Droid Serif', serif;
+    padding-top: 40px;
+    padding-bottom: 0px;
+    color: #B82C11;
+    }
 
     h3 {
       padding-bottom: 20px;
@@ -147,6 +193,70 @@ body {
 .timer {
   white-space: pre;
 }
+
+.dropdown-menu {
+  color: #FCDED4;
+
+  .dropdown-links:hover {
+    color: #FCDED4;
+
+  }
+}
+
+.login a {
+  color: #FCDED4;
+  font-size: 16px;
+  font-family: 'Droid Serif', serif;
+  opacity: .75;
+
+
+}
+
+  a:hover {
+    color: #403E3D;
+    background-color: #B82C11 !important;
+  }
+
+  a:active {
+    background-color: #B82C11 !important;
+  }
+
+  a:focus {
+    background-color: #B82C11 !important;
+  }
   //font-family: font-family: 'Josefin Sans', sans-serif;
   //color: #FCDED4;
   //font-size: 80px;
+
+  .dashboard-header {
+
+  }
+
+  .dashboard-container {
+    width: 100%;
+    height: 1000px;
+  }
+
+  .login-container {
+    width: 100%;
+    height: 500px;
+    padding-top: 50px;
+
+    .form-horizontal {
+      padding-top: 20px;
+      opacity: .75;
+ 
+    }
+
+    .control-label {
+      color: #B82C11;
+    }
+  }
+
+  .task-label {
+    color: #FCDED4;
+    font-family: 'Droid Serif', serif;
+    font-size: 20px;
+  }
+
+ 
