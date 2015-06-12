@@ -68,11 +68,19 @@ app.controller('Home.controller', ['$scope', '$firebaseArray','Tasks', '$interva
     session: 0
   };
 
-    $scope.$watch(function(scope) { 
-      return scope.timer.working }, function(newValue, oldValue) {
+    $scope.$watch('timer.timer', function(newValue, oldValue) {
+      if(newValue < 250) {
+        mySound.play();
+        console.log("doing something");
+      }
+    }); 
+
+  /*  $scope.$watch(function(scope) { 
+      return scope.timer.timer }, function(newValue, oldValue) {
+        if(newValue < 250) {
       mySound.play(); 
-      console.log("supposed to do something here");
-  }); 
+      console.log("supposed to do something here"); };
+  }); */
   // $scope.tasks = $firebaseArray(ref);
   //timeEnd = 0;
 
@@ -100,6 +108,7 @@ app.controller('Home.controller', ['$scope', '$firebaseArray','Tasks', '$interva
 
         if (time < 250) {
           $scope.startBreakTimer();
+          mySound.play();
         }};
     }, 1000);  
   };
