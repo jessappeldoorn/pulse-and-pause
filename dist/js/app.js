@@ -38,6 +38,7 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
   time,
   count;
 
+
   var mySound = new buzz.sound("http://soundjax.com/reddo/56895%5EDING.mp3", {
     preload: true
   });
@@ -71,6 +72,7 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
     
 
     $scope.submit();
+
     $scope.tasks.$add(newTask); // Push into array
     $scope.newTaskText = "";
   };
