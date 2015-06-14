@@ -65,6 +65,11 @@ module.exports = function(grunt) {
                     cwd: './app/assets/'
                 }, {
                     expand: true,
+                    src: [ './**/*.mp3' ],
+                    dest: './dist/sounds',
+                    cwd: './app/assets/sounds'
+                }, {
+                    expand: true,
                     src: [ './**/*.html' ],
                     dest: './dist',
                     cwd: './app/pages/'

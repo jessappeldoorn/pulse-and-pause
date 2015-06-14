@@ -15,13 +15,13 @@
         <div class="row">
           <div class="col-lg-6 col-lg-offset-3">
            <!-- Add a task -->
-            <form class="input-group" ng-submit="addTask()" ng-hide="newTask.created">
-              <input type="text" ng-model="newTaskText" ng-click="wasAdded" class="form-control" aria-label="Task" placeholder="Enter a label for this work session...">
+            <form class="input-group" ng-submit="toggleTimer()" ng-hide="timer.session">
+              <input type="text" ng-model="newTaskText" class="form-control" aria-label="Task" placeholder="Enter a label for this work session...">
                 <div class="input-group-btn">
                   <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
                 </div>
             </form>
-            <div class="task-label"> {{ list[0] }} </div>
+            <div class="task-label" ng-hide="!timer.session"> {{ list[0] }} </div>
           </div> <!-- end of col-lg-6 -->
         </div> <!-- end of row -->
       </div> <!-- end of container -->

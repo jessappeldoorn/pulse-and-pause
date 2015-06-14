@@ -12,7 +12,7 @@ var app = angular.module("Pulseandpause", ["firebase", "ui.router"]);
 
    $stateProvider.state('dashboard', {
      url: '/dashboard',
-     controller: 'Dashboard.controller',
+     controller: 'Home.controller',
      templateUrl: '/templates/dashboard.html'
    });
 
@@ -25,7 +25,12 @@ var app = angular.module("Pulseandpause", ["firebase", "ui.router"]);
  }]);
 
 // home controller
-app.controller('Home.controller', ['$scope', '$firebaseArray','Tasks', '$interval', '$timeout', function($scope, $firebaseArray, Tasks, $interval, $timeout){
+app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$timeout', function($scope, $firebaseArray, $interval, $timeout){
+  
+  var ref = new Firebase("https://pulseandpause.firebaseio.com");
+
+
+  $scope.tasks = $firebaseArray(ref);
 
   var fireTime = Firebase.ServerValue.TIMESTAMP;
   var timeEnd,
@@ -33,7 +38,7 @@ app.controller('Home.controller', ['$scope', '$firebaseArray','Tasks', '$interva
   time,
   count;
 
-  var mySound = new buzz.sound("/assets/sounds/ding1.mp3", {
+  var mySound = new buzz.sound("http://soundjax.com/reddo/56895%5EDING.mp3", {
     preload: true
   });
 
@@ -46,29 +51,34 @@ app.controller('Home.controller', ['$scope', '$firebaseArray','Tasks', '$interva
     }
   };
 
-  $scope.addTask = function() { // add task to history list
-    $scope.newTask = {
-      text: $scope.newTaskText,
-      created: fireTime,
-    };
-
-    $scope.submit();
-
-    tasks.$add(newTask); // Push into array
-    $scope.newTaskText = "";
-  };
-
   $scope.timer = {
-    name: $scope.newTaskText,
+    text: undefined,
     date: new Date (),
     timer: "READY",
     mode: "Start",
     onBreak: false,
     working: false,
-    session: 0
+    session: 0,
+    created: undefined
+  };
+
+
+  $scope.addTask = function() { // add task to history list
+    var newTask = {
+    text: $scope.newTaskText,
+    created: fireTime,
+  }
+    
+
+    $scope.submit();
+    $scope.tasks.$add(newTask); // Push into array
+    $scope.newTaskText = "";
   };
 
     $scope.$watch('timer.timer', function(newValue, oldValue) {
+      console.log("We have a newValue");
+              mySound.play();
+
       if(newValue < 250) {
         mySound.play();
         console.log("doing something");
@@ -90,9 +100,22 @@ app.controller('Home.controller', ['$scope', '$firebaseArray','Tasks', '$interva
     $interval.cancel(counter);
     timeEnd = " ";
 
+    var newSession = {
+      name: $scope.newTaskText,
+      created: fireTime
+    };
+
+    $scope.submit();
+    
+
+    $scope.tasks.$add(newSession);
+    $scope.newTaskText = "";
+
+
     $scope.timer.mode = "Stop";
     $scope.timer.timer = timeEnd;
     $scope.timer.working = true;
+    $scope.timer.onBreak = false;
     $scope.timer.session += 1;
     
     var timeStart = undefined,
@@ -162,7 +185,7 @@ app.controller('Home.controller', ['$scope', '$firebaseArray','Tasks', '$interva
   $scope.resetTimer = function() {
     $interval.cancel(counter);
     timeEnd = " ";
-    $scope.timer.name = $scope.newTaskText,
+    $scope.timer.name = " ",
     $scope.timer.date = new Date (),
     $scope.timer.timer = "READY",
     $scope.timer.mode = "Start",
@@ -192,6 +215,14 @@ app.controller('Dashboard.controller', ['$scope', '$firebaseArray', function($sc
 
 }]);
 
+app.controller('Login.controller', ['$scope', '$firebaseArray', function($scope, $firebaseArray) {
+  var ref = new Firebase("https://pulseandpause.firebaseio.com");
+// create a synchronized (psuedo read-only) array
+
+
+
+}]);
+
 app.directive('ngStopwatch', ['$interval', function($interval) {
   return {
     templateUrl: '/templates/directives/stopwatch.html',
@@ -207,7 +238,7 @@ app.directive('ngStopwatch', ['$interval', function($interval) {
 
 }]);
 
-app.factory('Tasks', ['$firebaseObject', '$firebaseArray', function($firebaseObject, $firebaseArray) {
+/*app.factory('Tasks', ['$firebaseObject', '$firebaseArray', function($firebaseObject, $firebaseArray) {
 
   var ref = new Firebase("https://pulseandpause.firebaseio.com");
   var tasks = $firebaseArray(ref);
@@ -215,7 +246,7 @@ app.factory('Tasks', ['$firebaseObject', '$firebaseArray', function($firebaseObj
   return {
     allTasks: tasks
   }
-}]);
+}]);*/
 
 
 

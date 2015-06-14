@@ -9,6 +9,7 @@
   "author": "Bloc and Nick Ferraro",
   "license": "ISC",
   "dependencies": {
+    "angular-chart.js": "^0.7.1",
     "hapi": "^7.5.0",
     "path": "^0.4.9"
   },
