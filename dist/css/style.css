@@ -168,3 +168,6 @@ a:focus {
   color: #FCDED4;
   font-family: 'Droid Serif', serif;
   font-size: 20px; }
+
+.todo-session {
+  margin-right: 0 auto; }
