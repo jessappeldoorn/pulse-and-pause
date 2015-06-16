@@ -4,11 +4,29 @@
     <div class="date">
       <h3> {{ timer.date | date: 'fullDate' }} </h3>
     </div>
+    
     <ng-stopwatch></ng-stopwatch>
    <!-- <div class="countdown">
       <span class="timer"> {{ timer }} </span>
     </div> -->
-  </div> <!-- end of stopwatch -->
+    </div> <!-- end of stopwatch -->
+
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-lg-offset-3">
+           <!-- Add a task -->
+            <form class="input-group" ng-submit="toggleTimer()" ng-hide="timer.session">
+              <input type="text" ng-model="newTaskText" class="form-control" aria-label="Task" placeholder="Enter a label for this work session...">
+                <div class="input-group-btn">
+                  <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                </div>
+            </form>
+            <div class="task-label" ng-hide="!timer.session"> {{ list[0] }} </div>
+          </div> <!-- end of col-lg-6 -->
+        </div> <!-- end of row -->
+      </div> <!-- end of container -->
+
+    </br>
 
   <div class="start-button">
     <button class="btn btn-default" type="submit" ng-click="toggleTimer()"> {{ timer.mode }} </button>
