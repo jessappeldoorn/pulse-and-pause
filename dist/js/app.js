@@ -33,7 +33,7 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
   counter,
   time, 
   count,
-  mySound = new buzz.sound("http://soundjax.com/reddo/56895%5EDING.mp3", {
+  mySound = new buzz.sound("http://soundbible.com/grab.php?id=1746&type=mp3", {
     preload: true
   });
 
@@ -169,7 +169,7 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
 
         if (time < 250){
           $scope.timer.breakSound = true;
-          //$scope.startWorkTimer();
+          $scope.startWorkTimer();
         };
       }
     }, 1000); 
