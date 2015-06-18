@@ -24,20 +24,18 @@ var app = angular.module("Pulseandpause", ["firebase", "ui.router"]);
  }]);
 
 // home controller
-app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$timeout', function($scope, $firebaseArray, $interval, $timeout){
+app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$timeout', 'taskFactory', 'timerFactory' function($scope, $firebaseArray, $interval, $timeout, taskFactory, timerFactory){
   
   var ref = new Firebase("https://pulseandpause.firebaseio.com"),
-  fireTime = Firebase.ServerValue.TIMESTAMP,
-  timeEnd,
+  // fireTime = Firebase.ServerValue.TIMESTAMP,
+  var timeEnd,
   counter,
   time, 
-  count,
-  mySound = new buzz.sound("http://soundjax.com/reddo/56895%5EDING.mp3", {
-    preload: true
-  });
+  count
 
-  $scope.tasks = $firebaseArray(ref);
-  $scope.list = [];
+
+  // $scope.tasks = $firebaseArray(ref);
+  // $scope.list = [];
   $scope.timer = {
     text: undefined,
     date: new Date (),
@@ -50,30 +48,15 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
     workSound: false,
     breakSound: false
   };
+  $scope.tasks = taskFactory.tasks;
+  $scope.submit = taskFactory.addTask($scope.newTaskText, $scope.list);
 
-  $scope.submit = function() {
-    if ($scope.newTaskText) {
-      $scope.list.push(this.newTaskText);
-    }
-  };
-
-  $scope.$watch('timer.breakSound', function(newValue, oldValue) {
-    if(newValue) {
-      mySound.play();
-    }
-  }); 
-
-  $scope.$watch('timer.workSound', function(newValue, oldValue) {
-      if(newValue) {
-      mySound.play();
-    }
-  });
 
   $scope.createTask = function() {
     // check if newTaskText  is undefined
-    // if ($scope.newTaskText === undefined) { 
-    //   $scope.newTaskText = null; 
-    // };
+    if ($scope.newTaskText === undefined) { 
+      $scope.newTaskText = null; 
+    };
 
     $scope.newTask = {
       name: $scope.newTaskText,
@@ -82,7 +65,9 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
     };
 
     $scope.submit();
-    $scope.tasks.$add($scope.newTask);
+    // $scope.tasks.$add($scope.newTask);
+    taskFactory.addToFirebase($scope.newTask);
+
     $scope.newTaskText = "";
   }
 
@@ -100,7 +85,7 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
     $scope.timer.text = $scope.newTaskText;
     $scope.timer.mode = "Stop";
     $scope.timer.timer = timeEnd;
-    $scope.timer.working = true;
+    $scope.timer.working = timerFactory.timerWorking;
     $scope.timer.onBreak = false;
     $scope.timer.session += 1;
     $scope.timer.workSound = false;
@@ -110,18 +95,7 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
     time = undefined;
     timeEnd = new Date().setMilliseconds(7000); //1502000
     
-    counter = $interval(function(){ 
-      if($scope.timer.working === true){
-        timeStart = new Date().getTime();  
-        time = timeEnd - timeStart;
-
-        $scope.timer.timer = time;
-
-        if (time < 250) {
-          $scope.timer.workSound = true;
-          $scope.startBreakTimer();
-        }};
-    }, 1000);  
+    counter = timerFactory.counter; // function?
   };
 
   $scope.startBreakTimer = function() {
@@ -296,47 +270,58 @@ app.directive('ngStopwatch', ['$interval', function($interval) {
   };
 }]);
 
-app.factory('taskRepository', ['$firebaseObject', '$firebaseArray', function($firebaseObject, $firebaseArray) {
-
-  var ref = new Firebase("https://pulseandpause.firebaseio.com");
-  var tasks = $firebaseArray(ref);
+app.factory('taskFactory', ['$firebaseObject', '$firebaseArray', function($firebaseObject, $firebaseArray) {
+  var ref = new Firebase("https://pulseandpause.firebaseio.com"),
+  fireTime = Firebase.ServerValue.TIMESTAMP,
+  
   //$scope.timer = $firebaseArray(ref);
-  return {
-    allTasks: tasks
-  };
-}]);
 
+  return { 
+    tasks: $firebaseArray(ref),
+    addToFirebase: function(task){
+      tasks.$add(task)
+    },
+    fireTime: fireTime,
+    list: [],
+    addTask = function(text, array) {
+      if (text) {
+        array.push(text)
+      }
+    }
+  }
+}]);
 
 app.factory('timerFactory', function() {
 
-  var timer = {};
-  timer.newSession = function() { 
+  return {
+    sound: new buzz.sound("http://soundjax.com/reddo/56895%5EDING.mp3", {
+      preload: true
+    }),
 
-    $interval.cancel(counter);
-    timeEnd = " ";
+    breakCheck: function(){
+        $scope.$watch('timer.breakSound', function(newValue, oldValue) {
+        if(newValue !== oldValue) {
+          console.log(this.sound);
+          this.sound.play();
+        }
+      });
+    } ,
 
-    if($scope.newTask === undefined) {
-      $scope.createTask();
-    } else {
-      $scope.newTask.session += 1;
-      console.log($scope.newTask.session + $scope.newTask.name);
-    };
+    workCheck: function(){
+        $scope.$watch('timer.workSound', function(newValue, oldValue) {
+        if(newValue !== oldValue) {
+          console.log(this.sound);
+          this.sound.play();
+        }
+      });
+    }, 
 
-    $scope.timer.text = $scope.newTaskText;
-    $scope.timer.mode = "Stop";
-    $scope.timer.timer = timeEnd;
-    $scope.timer.working = true;
-    $scope.timer.onBreak = false;
-    $scope.timer.session += 1;
-    $scope.timer.workSound = false;
-    
+    timerWorking: true,
 
-    var timeStart = undefined,
-    time = undefined;
-    timeEnd = new Date().setMilliseconds(7000); //1502000
-    
-    counter = $interval(function(){ 
-      if($scope.timer.working === true){
+    counter: function(){
+      this.counterInterval = $interval(function(){ 
+      // TODO: replace $scope references to references on our timerFactory object (this)
+      if(this.timerWorking === true){
         timeStart = new Date().getTime();  
         time = timeEnd - timeStart;
 
@@ -346,8 +331,13 @@ app.factory('timerFactory', function() {
           $scope.timer.workSound = true;
           $scope.startBreakTimer();
         }};
-    }, 1000);  
-  };
+    }, 1000);
+
+    },
+    stopCounter: function(){
+      $window.clearInterval(this.counter);
+    }
+  }
 
 });
 
