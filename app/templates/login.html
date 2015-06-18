@@ -1,11 +1,11 @@
-<div class="login-container">
+<div class="login-container" ng-hide="clicked">
   <div class="row">
     <div class="col-lg-4 col-lg-offset-4">
 
       <div class="panel panel-default">
         <div class="panel-body">
 
-          <form class="form-horizontal" ng-submit="addUser()">
+          <form class="form-horizontal" ng-submit="createUser()">
             <div class="form-group">
               <div class="col-sm-12">
                 <input type="email" class="form-control" id="inputEmail3" placeholder="Email address" ng-model="userEmail">
@@ -19,7 +19,7 @@
 
             <div class="form-group">
               <div class="col-lg-4 col-lg-offset-4.5">
-                <button type="submit" class="btn btn-default">Sign in</button>
+                <button type="submit" class="btn btn-default" ng-click="clicked = !clicked">Sign in</button>
               </div>
               <div class="col-lg-4 col-lg-offset-4">
                 <span>Don't have a login? <a href="#">Create an account</a></span>

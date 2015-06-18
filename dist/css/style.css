@@ -80,26 +80,51 @@ body {
 .second-section {
   padding-top: 20px;
   margin-top: 5px;
-  background-color: #FCDED4; }
-  .second-section h5 {
+  background-color: #403E3D; }
+  .second-section .dashboard-container {
+    margin-top: 10px;
+    padding-top: 10px;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    opacity: .50;
+    font-size: 24px;
+    border: none; }
+  .second-section table {
+    margin-top: 100px;
+    border-style: none; }
+  .second-section .table-heading {
+    border: none; }
+  .second-section .table-data {
+    border-top: none; }
+  .second-section input {
+    border: none;
+    background-color: #403E3D; }
+  .second-section tr {
+    border: none; }
+
+.third-section {
+  padding-top: 20px;
+  margin-top: 5px;
+  background-color: white; }
+  .third-section h5 {
     font-size: 24px;
     text-align: center;
     font-family: 'Droid Serif', serif;
     padding-top: 0px;
     padding-bottom: 60px; }
-  .second-section h2 {
+  .third-section h2 {
     font-size: 60px;
     text-align: center;
     font-family: 'Droid Serif', serif;
     padding-top: 40px;
     padding-bottom: 0px;
     color: #B82C11; }
-  .second-section h3 {
+  .third-section h3 {
     padding-bottom: 20px;
     font-family: 'Oswald', sans-serif;
     font-style: bold;
     font-size: 24px; }
-  .second-section p {
+  .third-section p {
     padding-bottom: 50px;
     font-family: 'Droid Serif', serif;
     font-size: 16px; }

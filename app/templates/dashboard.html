@@ -1,44 +1,43 @@
-<div class="dashboard-header">
+<!-- <div class="dashboard-header">
   <h1>dashboard</h1>
-</div>
+</div> -->
 
-  <div class="dashboard-container">
+  <div class="container">
     <div class="row">
+
       <div class="col-lg-4">
-      <table class = "table">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Task</th>
-            <th>Sessions</th>
-            <th>Comments</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="table-hover" ng-repeat="task in tasks | orderBy: '-created'">
-            <td> {{ task.created | date: 'mediumDate' }}</td>
-            <td> {{ task.name }} </td>
-            <td> {{ task.session }} </td>
-            <td><input type="text" placeholder="enter comments..."></td>
-          </tr>
-      </table>
-
-<!--         <h4 class="list-group-item">TASK HISTORY</h4>
-    
-        <div class="list-group-item" ng-repeat="task in tasks">
-           <div class="todo"> {{ task.name }} <span class = "todo-date">
-           {{ task.created | date: 'fullDate' }} </span><span class = "todo-session"> {{ task.session }} </span></div>
-
-        </div> -->
-      </div> <!-- end of col-lg-4 -->
-    </div> <!-- end of row -->
-  </div> <!-- end of container -->
-
-  <div class="dashboard-container">
-    <div class="row">
+        <div class="container clearfix">
+          <div class="third widget doughnut">
+              <h3>Breakdown of Tasks</h3>
+              <div class="canvas-container">
+                  <canvas id="hours"></canvas>
+              </div>
+          </div>
+        </div>
+      </div>
+          
       <div class="col-lg-4">
-        <h4 class="list-group-item">CHART</h4>
-           <canvas id="doughnut" class="chart chart-doughnut" data="data"labels="labels"></canvas> 
+        <div class="third widget line">
+          <div class="chart-legend">
+              <h3>Productivity per Day</h3>
+          </div>
+          <div class="canvas-container">
+              <canvas id="shipments"></canvas>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-4">
+        <div class="third widget">
+          <div class="chart-legend">
+              <h3>Interruptions</h3>
+          </div>
+          <div class="canvas-container">
+              <canvas id="departments"></canvas>
+          </div>
+        </div>
+      </div>
+
       </div> <!-- end of col-lg-4 -->
     </div> <!-- end of row -->
   </div> <!-- end of container -->

@@ -122,7 +122,44 @@ body {
 .second-section {
   padding-top: 20px;
   margin-top: 5px;
-  background-color: #FCDED4;
+  background-color: #403E3D;
+
+  .dashboard-container {
+    margin-top: 10px;
+    padding-top: 10px;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    opacity: .50;
+    font-size: 24px;
+    border: none;
+ }
+    table {
+      margin-top: 100px;
+      border-style: none;
+    }
+
+    .table-heading {
+      border: none;
+    }
+
+    .table-data {
+      border-top: none;
+    }
+
+    input {
+      border: none;
+      background-color: #403E3D;
+    }
+
+    tr {
+      border: none;
+    }
+}
+
+  .third-section {
+  padding-top: 20px;
+  margin-top: 5px;
+  background-color: white;
 
     h5 {
     font-size: 24px;
