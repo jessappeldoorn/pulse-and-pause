@@ -1,7 +1,7 @@
 pulse and pause
 =================
 
-A time-management web app.
+A single-page app, built with a Firebase back-end and AngularJS. 
 
 ## Configuration
 
