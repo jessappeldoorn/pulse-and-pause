@@ -1,7 +1,7 @@
-Bloc Base Project
+pulse and pause
 =================
 
-A base for Bloc frontend projects.
+A time-management web app.
 
 ## Configuration
 
