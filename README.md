@@ -3,55 +3,28 @@ pulse and pause
 
 A single-page app, built with a Firebase back-end and AngularJS. 
 
-## Configuration
+## Use Case
 
-Configuring this project should be consistent across Nitrous, Mac (local), and Vagrant.
+The Pomodoro Technique aims to increase your work productivity and quality. In its simplest form, you time your work in 25-minute intervals, with five-minute breaks in between.
 
-Start by cloning the repository
+During a 25-minute session, you focus on a task. Checking email, answering the phone, or browsing your favorite forum is not allowed. During a break, you do not do anything related to work. You can meditate, do push ups and play with your dog, but you can't think about work.
 
-```
-$ git clone https://github.com/Bloc/base-frontend-project.git <your-frontend-project-name>
-```
+When implemented with discipline, the Pomodoro Technique can be a powerful tool to increase your productivity. I built this application as part of my coursework through the Bloc, Inc web development program.
 
-The project uses Grunt to run tasks (detailed below); start by installing the Grunt Command Line Interface (`grunt-cli`) globally on your machine.
+## User Story Breakdown
 
-```
-$ npm install -g grunt-cli
-```
-
-Once that's complete, install the remaining project dependencies by running
-
-```
-$ npm install
-```
+| User Story | Implementation
+| :-------: | :--------------: |
+| **As a user, I want to start and reset a 25-minute work session** | Create a button with the ngClick directive to trigger function that starts/resets the timer. Use a ngBind directive to handle the button text, i.e., "Start a Work Session", "Reset", "Take a Break", etc. Use Angular's $interval service to execute a function that updates the remaining time every second. |
+| **As a user, I want to start and reset a five-minute break after each completed work session** | Create a boolean variable to control the state of the timer. Use the ngShow or ngHide directive to determine what the user sees in the view. When the timer reaches the end of a work session, modify it so the user will see this new time, and the ngShow or ngHide directive used on the buttons will pair the correct button to the timer's state. |
+| **As a user, I want to start and reset a longer, 30-minute break after every four completed work sessions** | Create a variable that holds the number of completed work sessions. Increment the count after each completed work session. When the timer reaches the end of a work session, update the time remaining by using a conditional statement to check whether the number of completed work sessions is equal to four - which would then send you to a thirty minute break.  Once all sessions are complete, reset back to 0. |
+| **As a user, I want to see a live timer during work sessions and breaks** | Assign the time remaining to a variable and use {{ }} markup or the ngBind directive to render the time remaining in the view. Create a filter to handle the conversion of the time remaining. |
+| **As a user, I want to hear a sound at the end of work sessions and breaks** | Add sound with Buzz and trigger a playback. Use a $watch method to register a listener callback to execute whenever the watchExpression changes. Watch the time remaining and call the .play() method on the variable that holds the sound file when the time remaining equals zero. |
+| **As a user, I want to record completed tasks** | Sync with Firebase and add tasks. |
 
 ## Grunt
 
-This project base uses [Grunt](http://gruntjs.com/) to serve, build and watch project files in development. We've configured Grunt to work for you, but if you're interested in learning more about how Grunt works, look at Grunt's [Getting Started Guide](http://gruntjs.com/getting-started) or watch [Egghead's introduction to Grunt video](https://egghead.io/lessons/gruntjs-introduction-to-grunt).
-
-## Running the application
-
-Run the application using
-
-```
-$ grunt
-```
-
-The application runs on port 3000 (configured in the [`Gruntfile.js`](https://github.com/joelip/base-frontend-project/blob/master/server.js)). To change the port, modify the number highlighted below
-
-```js
-connect: {
-  server: {
-    options: {
-      // Change this value here to the desired port number
-      port: 3000,
-      hostname: 'localhost',
-      base: './dist',
-      useAvailablePort: true
-    }
-  }
-}
-```
+This project base uses [Grunt](http://gruntjs.com/) to serve, build and watch project files in development. 
 
 ## Directory structure and Grunt
 
@@ -67,36 +40,7 @@ app/
  |   |__home.html
 ```
 
-Grunt looks for files using a defined pattern so that it knows what to compile and copy and where to put it. To edit the files that Grunt watches, look at the array of files in the `watch` task in `Gruntfile.js`. The default watched files are
-
-```js
-  files: [
-      './app/scripts/**/*.js',
-      './app/sass/**/*.scss',
-      './app/pages/**/*.html',
-      './app/templates/**/*.html',
-      'Gruntfile.js'
-  ]
-```
-
-Add any files or directories to Grunt's watch task using the [Grunt conventions for performing file operations](http://gruntjs.com/configuring-tasks#files).
-
 ### Sass
-
-Make sure that all of your Sass files are included in the `sass` directory. When you create new Sass files in addition to `styles.scss`, make sure that you include them in `styles.scss` with an `@import` statement. For example, if you create a `home.scss` file to match our `home.html` template, include it in `styles.scss` with
-
-```sass
-@import "home";
-```
-
-and it will be automatically populated in the compiled CSS file when you save any Sass file.
-
-### Difference between Pages and Templates
-
-The `pages` directory is where you should keep application layouts. That is, these are full pages where you'll put a base HTML structure that might hold a `ui-view` or another dynamic block of HTML based on differing routes, app states, etc.
-
-Templates are partials, or smaller sets of HTML that will be populated into the pages. The distinction is similar to the differene between `index.html` and the HTML files in the `templates` directory in Bloc Jams.
-
 
 ## Grunt plugins
 
