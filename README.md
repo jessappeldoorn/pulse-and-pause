@@ -1,4 +1,4 @@
-pulse and pause
+pulse & pause
 =================
 
 A single-page app, built with a Firebase back-end and AngularJS. 
