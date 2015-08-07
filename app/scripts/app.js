@@ -12,7 +12,12 @@ var app = angular.module("Pulseandpause", ["firebase", "ui.router"]);
    $stateProvider.state('dashboard', {
      url: '/dashboard',
      controller: 'Dashboard.controller',
-     templateUrl: '/templates/dashboard.html'
+     templateUrl: '/templates/dashboard.html',
+     resolve: {
+      currentAuth: function(Auth) {
+        return Auth.$waitForAuth();
+      }
+     }
    });
 
    $stateProvider.state('login', {
@@ -20,6 +25,14 @@ var app = angular.module("Pulseandpause", ["firebase", "ui.router"]);
      controller: 'Login.controller',
      templateUrl: '/templates/login.html'
    });
+
+
+    $stateProvider.state('account', {
+     url: '/account',
+     controller: 'Login.controller',
+     templateUrl: '/templates/account.html'
+   });
+
 
  }]);
 
@@ -71,9 +84,9 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
 
   $scope.createTask = function() {
     // check if newTaskText  is undefined
-    // if ($scope.newTaskText === undefined) { 
-    //   $scope.newTaskText = null; 
-    // };
+    if ($scope.newTaskText === undefined) { 
+      $scope.newTaskText = null; 
+    };
 
     $scope.newTask = {
       name: $scope.newTaskText,
@@ -87,6 +100,8 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
   }
 
   $scope.startWorkTimer = function() {
+  //   timerFactory.newSession(); 
+  // };
     $interval.cancel(counter);
     timeEnd = " ";
 
@@ -108,7 +123,7 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
 
     var timeStart = undefined,
     time = undefined;
-    timeEnd = new Date().setMilliseconds(7000); //1502000
+    timeEnd = new Date().setMilliseconds(1502000); //1502000
     
     counter = $interval(function(){ 
       if($scope.timer.working === true){
@@ -141,7 +156,7 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
 
     if($scope.timer.session <= 3) {
       console.log("On a short break" + " " + $scope.timer.session);
-      timeEnd = new Date().setMilliseconds(7000); //302000
+      timeEnd = new Date().setMilliseconds(302000); //302000
       $scope.timer.mode = "Stop";   
     } else {
        console.log("On a long break" + " " + $scope.timer.session);
@@ -269,21 +284,164 @@ new Chart(ctx).Radar(data);
 
 }]);
 
-app.controller('Login.controller', ['$scope', '$firebaseArray', function($scope, $firebaseArray) {
+app.factory('Auth', function($firebaseAuth) {
   var ref = new Firebase("https://pulseandpause.firebaseio.com");
-// create a synchronized (psuedo read-only) array
-  $scope.user = $firebaseArray(ref);
+  return $firebaseAuth(ref);
+});
 
-  $scope.createUser = function() {
-    var newUser = {
-      email: $scope.userEmail,
-      password: $scope.userPassword
-    };
+app.controller('Login.controller', ['$scope', '$firebaseArray', 'Auth', function($scope, $firebaseArray, Auth) {
+  Auth.$onAuth(function(authData) {
+    $scope.authData = authData;
+    console.log(authData);
 
-    $scope.user.$add(newUser);
-    $scope.userEmail = "";
-    $scope.userPassword = "";
+    // if (authData) {
+    //   getUserData();
+    // }
+  });
+
+ 
+
+  $scope.login = function() {
+    Auth.$authWithOAuthPopup("facebook").catch(function(error) {
+      console.error(error);
+    });
+  };
+
+  $scope.logout = function() {
+    Auth.$unauth();
+  };
+
+// function getUserData() {
+//   $http.get($scope.authData.firebase.....)
+//   .success(function(...) {
+//     $scope.
+//   })
+// }
+
+// we would probably save a profile when we register new users on our site
+// we could also read the profile to see if it's null
+// here we will just simulate this with an isNewUser boolean
+var isNewUser = true;
+
+var ref = new Firebase("https://pulseandpause.firebaseio.com");
+ref.onAuth(function(authData) {
+  if (authData && isNewUser) {
+    // save the user's profile into the database so we can list users,
+    // use them in Security and Firebase Rules, and show profiles
+    ref.child("users").child(authData.uid).set({
+      provider: authData.provider,
+      name: getName(authData)
+    });
   }
+});
+
+// find a suitable name based on the meta info given by each provider
+function getName(authData) {
+  switch(authData.provider) {
+     case 'password':
+       return authData.password.email.replace(/@.*/, '');
+     case 'twitter':
+       return authData.twitter.displayName;
+     case 'facebook':
+       return authData.facebook.displayName;
+  }
+}
+
+//   $scope.authObj.$authWithPassword({
+//     email    : "bobtony@firebase.com",
+//     password : "correcthorsebatterystaple"
+//   }).then(function(authData) {
+//     // User Authenticated
+//   }).catch(function(error) {
+//     // Authentication error
+//   });
+
+// $scope.authObj.$onAuth(function(authData) {
+//   if (authData) {
+//     // User logged in
+//   } else {
+//     // User logged out
+//   }
+// });
+
+// $scope.authObj.ref.$createUser({
+//   email: "bobtony@firebase.com",
+//   password: "correcthorsebatterystaple"
+// }).then(function(userData) {
+//   // User Created
+// }).catch(function(error) {
+//   // Error creating user
+// });
+
+
+
+// $scope.createUser = function() {
+
+//     ref.createUser({
+//     email    : "bobtony@firebase.com",
+//     password : "correcthorsebatterystaple"
+//   }, function(error, userData) {
+//     if (error) {
+//       console.log("Error creating user:", error);
+//     } else {
+//       console.log("Successfully created user account with uid:", userData.uid);
+//     }
+//   });
+
+// };
+
+// $scope.userLogin = function() {
+
+//   ref.authWithPassword({
+//     email    : "bobtony@firebase.com",
+//     password : "correcthorsebatterystaple"
+//   }, function(error, authData) {
+//     if (error) {
+//       console.log("Login Failed!", error);
+//     } else {
+//       console.log("Authenticated successfully with payload:", authData);
+//     }
+
+//   });
+
+// };
+
+
+
+
+// $scope.SignIn = function(event) {
+//     event.preventDefault();  // To prevent form refresh
+//     var username = $scope.user.email;
+//     var password = $scope.user.password;
+     
+//     loginObj.$login('password', {
+//             email: username,
+//             password: password
+//         })
+//         .then(function(user) {
+//             // Success callback
+//             console.log('Authentication successful');
+//         }, function(error) {
+//             // Failure callback
+//             console.log('Authentication failure');
+//         });
+// }
+
+
+
+// create a synchronized (psuedo read-only) array
+  // $scope.user = $firebaseArray(ref);
+
+  // $scope.createUser = function() {
+  //   var newUser = {
+  //     email: $scope.userEmail,
+  //     password: $scope.userPassword
+  //   };
+
+  //   $scope.user.$add(newUser);
+  //   $scope.userEmail = "";
+  //   $scope.userPassword = "";
+  // }
 
 }]);
 
@@ -296,61 +454,91 @@ app.directive('ngStopwatch', ['$interval', function($interval) {
   };
 }]);
 
-app.factory('taskRepository', ['$firebaseObject', '$firebaseArray', function($firebaseObject, $firebaseArray) {
+app.factory('userTasks', ['$firebaseObject', '$firebaseArray', function($firebaseObject, $firebaseArray) {
 
   var ref = new Firebase("https://pulseandpause.firebaseio.com");
+  fireTime = Firebase.ServerValue.TIMESTAMP,
   var tasks = $firebaseArray(ref);
   //$scope.timer = $firebaseArray(ref);
   return {
     allTasks: tasks
+    firebaseArray(ref)
   };
 }]);
 
+  
 
-app.factory('timerFactory', function() {
+  $scope.tasks = $firebaseArray(ref);
+  $scope.list = [];
 
-  var timer = {};
-  timer.newSession = function() { 
-
-    $interval.cancel(counter);
-    timeEnd = " ";
-
-    if($scope.newTask === undefined) {
-      $scope.createTask();
-    } else {
-      $scope.newTask.session += 1;
-      console.log($scope.newTask.session + $scope.newTask.name);
-    };
-
-    $scope.timer.text = $scope.newTaskText;
-    $scope.timer.mode = "Stop";
-    $scope.timer.timer = timeEnd;
-    $scope.timer.working = true;
-    $scope.timer.onBreak = false;
-    $scope.timer.session += 1;
-    $scope.timer.workSound = false;
-    
-
-    var timeStart = undefined,
-    time = undefined;
-    timeEnd = new Date().setMilliseconds(7000); //1502000
-    
-    counter = $interval(function(){ 
-      if($scope.timer.working === true){
-        timeStart = new Date().getTime();  
-        time = timeEnd - timeStart;
-
-        $scope.timer.timer = time;
-
-        if (time < 250) {
-          $scope.timer.workSound = true;
-          $scope.startBreakTimer();
-        }};
-    }, 1000);  
+  $scope.submit = function() {
+    if ($scope.newTaskText) {
+      $scope.list.push(this.newTaskText);
+    }
   };
 
-});
+  $scope.createTask = function() {
+    // check if newTaskText  is undefined
+    if ($scope.newTaskText === undefined) { 
+      $scope.newTaskText = null; 
+    };
+
+    $scope.newTask = {
+      name: $scope.newTaskText,
+      created: fireTime,
+      session: 1
+    };
+
+    $scope.submit();
+    $scope.tasks.$add($scope.newTask);
+    $scope.newTaskText = "";
+  }
 
 
+// app.factory('timerFactory', function() {
 
+//   var timer = {},
+//   counter;
+//   timer.newSession = function() { 
+
+//     $interval.cancel(counter);
+//     timeEnd = " ";
+
+//     if($scope.newTask === undefined) {
+//       $scope.createTask();
+//     } else {
+//       $scope.newTask.session += 1;
+//       console.log($scope.newTask.session + $scope.newTask.name);
+//     };
+
+//     $scope.timer.text = $scope.newTaskText;
+//     $scope.timer.mode = "Stop";
+//     $scope.timer.timer = timeEnd;
+//     $scope.timer.working = true;
+//     $scope.timer.onBreak = false;
+//     $scope.timer.session += 1;
+//     $scope.timer.workSound = false;
+    
+
+//     var timeStart = undefined,
+//     time = undefined;
+//     timeEnd = new Date().setMilliseconds(7000); //1502000
+    
+//     counter = $interval(function(){ 
+//       if($scope.timer.working === true){
+//         timeStart = new Date().getTime();  
+//         time = timeEnd - timeStart;
+
+//         $scope.timer.timer = time;
+
+//         if (time < 250) {
+//           $scope.timer.workSound = true;
+//           $scope.startBreakTimer();
+//         }};
+//     }, 1000);  
+//   };
+
+//   return timer;
+
+// });
 

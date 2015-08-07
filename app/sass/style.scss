@@ -2,10 +2,6 @@ body {
   background-color: #B82C11;
 }
 
-.navbar-header-link a:hover, a:focus, a:active {
-  text-decoration: none;
-}
-
 .navbar-header-link h3 {
   color: #FCDED4;
   font-family: 'Droid Serif', serif;
@@ -16,23 +12,56 @@ body {
   }
 }
 
-.header {
+.navbar-header-link:hover, .navbar-header-link:active, .navbar-header-link:visited {
+  text-decoration: none;
+}
+
+.navbar-header-link h3:hover {
+  text-decoration: none;
+  color: #000000;
+}
+
+.navbar-header-link h3:hover, .navbar-header-link h3:active, .navbar-header-link h3:visited {
+  text-decoration: none;
+}
+
+
+.navbar-default {
   background-color: #B82C11;
   height: 80px;
+  border: none;
 
-  .glyphicon-menu-hamburger {
-    font-size: 20px;
-    margin-left: 0px;
-    color: #FCDED4;
-    opacity: .75;
+  // .glyphicon-menu-hamburger {
+  //   font-size: 20px;
+  //   margin-left: 0px;
+  //   color: #FCDED4;
+  //   opacity: .75;
 
-    ul {
-     background-color: #B82C11;
-    }
+  //   ul {
+  //    background-color: #B82C11;
+  //   }
+  // }
+}
+
+ .login a {
+  color: #fcf5e3 !important;
+  font-size: 18px;
+  font-family: 'Oswald', sans-serif;
+  opacity: .75;
+}
+
+  .login a:hover {
+    color: #403E3D;
+    background-color: #B82C11 !important;
   }
 
+  .login a:active {
+    background-color: #B82C11 !important;
+  }
 
-}
+  a:focus {
+    background-color: #B82C11 !important;
+  }
 
 .dropdown ul {
   background-color: #FCDED4;
@@ -44,17 +73,12 @@ body {
 }
 
 .navbar-right {
-  height: 80px;
-  width: 150px;
-
+  color: #000000;
+  margin-top: 15px;
 
   .dropdown {
     height: 80px;
 
-
-    .login {
-      height: 80px;
-    }
   }
 }
 
@@ -159,7 +183,7 @@ body {
   .third-section {
   padding-top: 20px;
   margin-top: 5px;
-  background-color: white;
+  background-color: #fcf5e3;
 
     h5 {
     font-size: 24px;
@@ -195,37 +219,32 @@ body {
 
 .glyphicon-time {
   font-size: 90px;
-  color: #C4AAA1
-
+  color: #B82C11;
+  opacity: .5;
 }
 
 .glyphicon-fire {
   font-size: 90px;
-  color: #C4AAA1
-
+  color: #B82C11;
+  opacity: .5;
 }
 
 .glyphicon-phone {
   font-size: 90px;
-  color: #C4AAA1
- 
+  color: #B82C11;
+  opacity: .5;
 }
 
 .glyphicon-home {
   font-size: 90px;
-  color: #C4AAA1
- 
+  color: #B82C11;
+  opacity: .5;
 }
 
 .col-md-3 {
   text-align: center;
 }
 
-
-.third-section {
-  background-color: #C4AAA1;
-
-}
 
 .timer {
   white-space: pre;
@@ -240,27 +259,7 @@ body {
   }
 }
 
-.login a {
-  color: #FCDED4;
-  font-size: 16px;
-  font-family: 'Droid Serif', serif;
-  opacity: .75;
 
-
-}
-
-  a:hover {
-    color: #403E3D;
-    background-color: #B82C11 !important;
-  }
-
-  a:active {
-    background-color: #B82C11 !important;
-  }
-
-  a:focus {
-    background-color: #B82C11 !important;
-  }
   //font-family: font-family: 'Josefin Sans', sans-serif;
   //color: #FCDED4;
   //font-size: 80px;

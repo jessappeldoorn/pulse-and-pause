@@ -1,9 +1,6 @@
 body {
   background-color: #B82C11; }
 
-.navbar-header-link a:hover, a:focus, a:active {
-  text-decoration: none; }
-
 .navbar-header-link h3 {
   color: #FCDED4;
   font-family: 'Droid Serif', serif;
@@ -11,16 +8,36 @@ body {
   .navbar-header-link h3 span {
     color: #403E3D; }
 
-.header {
+.navbar-header-link:hover, .navbar-header-link:active, .navbar-header-link:visited {
+  text-decoration: none; }
+
+.navbar-header-link h3:hover {
+  text-decoration: none;
+  color: #000000; }
+
+.navbar-header-link h3:hover, .navbar-header-link h3:active, .navbar-header-link h3:visited {
+  text-decoration: none; }
+
+.navbar-default {
   background-color: #B82C11;
-  height: 80px; }
-  .header .glyphicon-menu-hamburger {
-    font-size: 20px;
-    margin-left: 0px;
-    color: #FCDED4;
-    opacity: .75; }
-    .header .glyphicon-menu-hamburger ul {
-      background-color: #B82C11; }
+  height: 80px;
+  border: none; }
+
+.login a {
+  color: #fcf5e3 !important;
+  font-size: 18px;
+  font-family: 'Oswald', sans-serif;
+  opacity: .75; }
+
+.login a:hover {
+  color: #403E3D;
+  background-color: #B82C11 !important; }
+
+.login a:active {
+  background-color: #B82C11 !important; }
+
+a:focus {
+  background-color: #B82C11 !important; }
 
 .dropdown ul {
   background-color: #FCDED4;
@@ -29,12 +46,10 @@ body {
     color: #FCDED4; }
 
 .navbar-right {
-  height: 80px;
-  width: 150px; }
+  color: #000000;
+  margin-top: 15px; }
   .navbar-right .dropdown {
     height: 80px; }
-    .navbar-right .dropdown .login {
-      height: 80px; }
 
 .section-head {
   text-align: center;
@@ -105,7 +120,7 @@ body {
 .third-section {
   padding-top: 20px;
   margin-top: 5px;
-  background-color: white; }
+  background-color: #fcf5e3; }
   .third-section h5 {
     font-size: 24px;
     text-align: center;
@@ -131,25 +146,26 @@ body {
 
 .glyphicon-time {
   font-size: 90px;
-  color: #C4AAA1; }
+  color: #B82C11;
+  opacity: .5; }
 
 .glyphicon-fire {
   font-size: 90px;
-  color: #C4AAA1; }
+  color: #B82C11;
+  opacity: .5; }
 
 .glyphicon-phone {
   font-size: 90px;
-  color: #C4AAA1; }
+  color: #B82C11;
+  opacity: .5; }
 
 .glyphicon-home {
   font-size: 90px;
-  color: #C4AAA1; }
+  color: #B82C11;
+  opacity: .5; }
 
 .col-md-3 {
   text-align: center; }
-
-.third-section {
-  background-color: #C4AAA1; }
 
 .timer {
   white-space: pre; }
@@ -158,22 +174,6 @@ body {
   color: #FCDED4; }
   .dropdown-menu .dropdown-links:hover {
     color: #FCDED4; }
-
-.login a {
-  color: #FCDED4;
-  font-size: 16px;
-  font-family: 'Droid Serif', serif;
-  opacity: .75; }
-
-a:hover {
-  color: #403E3D;
-  background-color: #B82C11 !important; }
-
-a:active {
-  background-color: #B82C11 !important; }
-
-a:focus {
-  background-color: #B82C11 !important; }
 
 .dashboard-container {
   width: 100%;

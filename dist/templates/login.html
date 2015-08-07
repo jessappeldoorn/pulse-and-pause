@@ -1,38 +1,127 @@
-<div class="login-container" ng-hide="clicked">
+<div class="login-container">
   <div class="row">
     <div class="col-lg-4 col-lg-offset-4">
 
       <div class="panel panel-default">
         <div class="panel-body">
-
-          <form class="form-horizontal" ng-submit="createUser()">
-            <div class="form-group">
+          <form class="form-horizontal">
+<!--             <div class="form-group">
               <div class="col-sm-12">
-                <input type="email" class="form-control" id="inputEmail3" placeholder="Email address" ng-model="userEmail">
+                <h4><span class="login">Login</span> to save sessions and view your Dashboard.</h4>
               </div>
-            </div>
-            <div class="form-group">
               <div class="col-sm-12">
-                <input type="password" class="form-control" id="inputPassword3" placeholder="Password" ng-model="userPassword">
+                <label>Email Address</label>
+                <input type="email" ng-model="authWithPassword.email" class="form-control" id="inputEmail3" placeholder="Enter email" ng-model="userEmail">
               </div>
+            </div> --><!-- 
+            <div class="form-group"> -->
+<!--               <div class="col-sm-12">
+                <label>Password</label>
+                <input type="password" ng-model="authWithPassword.password" class="form-control" id="inputPassword3" placeholder="Enter password" ng-model="userPassword">
+              </div> -->
+<!--             </div>
+            <div class="col-sm-12">
+              <button type="submit" class="btn btn-default" ng-click="login()" ng-hide="authData"ng-submit="userLogin()">Login</button>
+              <span>Don't have a login? <a ui-sref="account">Create an account</a></span>
+            </div> -->
+            <div class="col-sm-12">
+              <h4>Login with</h4>   
+              <button type="submit" class="btn btn-default" ng-click="login()" ng-hide="authData">Facebook</button>
+              <button type="submit" class="btn btn-default" ng-click="login()" ng-hide="authData">Twitter</button>
+              <button type="submit" class="btn btn-default" ng-click="login()" ng-hide="authData">Github</button>
+              <button type="submit" class="btn btn-default" ng-click="login()" ng-hide="authData">Google</button>
             </div>
-
-            <div class="form-group">
-              <div class="col-lg-4 col-lg-offset-4.5">
-                <button type="submit" class="btn btn-default" ng-click="clicked = !clicked">Sign in</button>
-              </div>
-              <div class="col-lg-4 col-lg-offset-4">
-                <span>Don't have a login? <a href="#">Create an account</a></span>
-              </div>
+            <div class="col-lg-4 col-lg-offset-4.5">
+              <img ng-show="authData" ng-src=" {{ authData.facebook.profileImageURL }} " />
+              <p ng-show="authData">{{ authData.facebook.displayName}} </p>
+              <button type="submit" class="btn btn-default" ng-click="logout()" ng-show="authData">Sign out</button>
             </div>
-          
+            </div>
           </form>
-
         </div>
       </div>
+
     </div> <!-- end of col-lg-4 -->
   </div> <!-- end of row -->
-</div> <!-- end of container -->
+</div> <!-- end of login-container -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="container" ng-show="clicked">
+    <div class="row">
+
+      <div class="col-lg-6">
+        <div class="container clearfix">
+          <div class="third widget doughnut">
+              <h3>Breakdown of Tasks</h3>
+              <div class="canvas-container">
+                  <canvas id="hours"></canvas>
+              </div>
+          </div>
+        </div>
+      </div>
+          
+      <div class="col-lg-6">
+        <div class="third widget line">
+          <div class="chart-legend">
+              <h3>Productivity per Day</h3>
+          </div>
+          <div class="canvas-container">
+              <canvas id="shipments"></canvas>
+          </div>
+        </div>
+      </div>
+      
+
+      </div> <!-- end of col-lg-4 -->
+    </div> <!-- end of row -->
+  </div> <!-- end of container -->
+
+    <div id="Info" class="second-section">
+  
+    <div id="tasks" class="container">
+      <div class="dashboard-container" ng-controller="Home.controller">
+        <div class="row">
+          <div class="col-lg-12">
+            <table class = "table">
+              <thead>
+                <tr>
+                  <th class="table-heading">Date</th>
+                  <th class="table-heading">Task</th>
+                  <th class="table-heading">Sessions</th>
+                  <th class="table-heading">Comments</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="table-hover" ng-repeat="task in tasks | orderBy: '-created'">          
+                  <td class="table-data"> {{ task.created | date: 'mediumDate' }}</td>
+                  <td class="table-data"> {{ task.name }} </td>
+                  <td class="table-data" ng-model="newTask"> {{ task.session }} </td>
+                  <td class="table-data"><input class="comments" type="text" placeholder="enter comments..."></td>
+                </tr>
+              </tbody>
+          </table>
+          </div> 
+        </div> 
+      </div> 
+    </div>
+
+  </div>
+
 
 
 
