@@ -12,8 +12,9 @@ var app = angular.module("Pulseandpause", ["firebase", "ui.router"]);
 
    $stateProvider.state('dashboard', {
      url: '/dashboard',
-     controller: 'Dashboard.controller',
+     controller: 'Home.controller',
      templateUrl: '/templates/dashboard.html',
+     authRequired: true,
      resolve: {
       currentAuth: function(Auth) {
         return Auth.$waitForAuth();
@@ -32,6 +33,12 @@ var app = angular.module("Pulseandpause", ["firebase", "ui.router"]);
      url: '/account',
      controller: 'Login.controller',
      templateUrl: '/templates/account.html'
+   });
+
+    $stateProvider.state('timer', {
+     url: '/timer',
+     controller: 'Home.controller',
+     templateUrl: '/templates/timer.html'
    });
 
 
@@ -86,7 +93,7 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
   $scope.createTask = function() {
     // check if newTaskText  is undefined
     if ($scope.newTaskText === undefined) { 
-      $scope.newTaskText = null; 
+      $scope.newTaskText = "Not Labeled"; 
     };
 
     $scope.newTask = {
@@ -100,6 +107,14 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
     $scope.newTaskText = "";
   }
 
+  $scope.addTaskName = function() {
+
+    this.name = $scope.taskNewName;
+    $scope.submit();
+    $scope.tasks.$save(this.newTask);
+    console.log(this.name);
+  }
+
   $scope.startWorkTimer = function() {
   //   timerFactory.newSession(); 
   // };
@@ -110,6 +125,7 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
       $scope.createTask();
     } else {
       $scope.newTask.session += 1;
+      $scope.tasks.$save($scope.newTask.session);
       console.log($scope.newTask.session + $scope.newTask.name);
     };
 
@@ -124,7 +140,7 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
 
     var timeStart = undefined,
     time = undefined;
-    timeEnd = new Date().setMilliseconds(1502000); //1502000
+    timeEnd = new Date().setMilliseconds(2000); //1502000
     
     counter = $interval(function(){ 
       if($scope.timer.working === true){
@@ -157,7 +173,7 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
 
     if($scope.timer.session <= 3) {
       console.log("On a short break" + " " + $scope.timer.session);
-      timeEnd = new Date().setMilliseconds(302000); //302000
+      timeEnd = new Date().setMilliseconds(2000); //302000
       $scope.timer.mode = "Stop";   
     } else {
        console.log("On a long break" + " " + $scope.timer.session);
@@ -222,19 +238,19 @@ app.controller('Dashboard.controller', ['$scope', '$firebaseArray', function($sc
   var data = [
     {
         value: 20,
-        color:"#637b85"
+        color:"#C2D8B9"
     },
     {
         value : 30,
-        color : "#2c9c69"
+        color : "#A1B5D8"
     },
     {
         value : 40,
-        color : "#dbba34"
+        color : "#738290"
     },
     {
         value : 10,
-        color : "#c62f29"
+        color : "#27213C"
     }
 
 ];
@@ -455,15 +471,45 @@ app.directive('ngStopwatch', ['$interval', function($interval) {
   };
 }]);
 
-// app.factory('taskRepository', ['$firebaseObject', '$firebaseArray', function($firebaseObject, $firebaseArray) {
+// app.factory('userTasks', ['$firebaseObject', '$firebaseArray', function($firebaseObject, $firebaseArray) {
 
 //   var ref = new Firebase("https://pulseandpause.firebaseio.com");
+//   fireTime = Firebase.ServerValue.TIMESTAMP,
 //   var tasks = $firebaseArray(ref);
 //   //$scope.timer = $firebaseArray(ref);
 //   return {
 //     allTasks: tasks
+//     firebaseArray(ref)
 //   };
 // }]);
+
+  
+
+//   $scope.tasks = $firebaseArray(ref);
+//   $scope.list = [];
+
+//   $scope.submit = function() {
+//     if ($scope.newTaskText) {
+//       $scope.list.push(this.newTaskText);
+//     }
+//   };
+
+//   $scope.createTask = function() {
+//     // check if newTaskText  is undefined
+//     if ($scope.newTaskText === undefined) { 
+//       $scope.newTaskText = null; 
+//     };
+
+//     $scope.newTask = {
+//       name: $scope.newTaskText,
+//       created: fireTime,
+//       session: 1
+//     };
+
+//     $scope.submit();
+//     $scope.tasks.$add($scope.newTask);
+//     $scope.newTaskText = "";
+//   }
 
 
 // app.factory('timerFactory', function() {

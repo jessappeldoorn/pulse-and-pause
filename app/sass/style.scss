@@ -1,3 +1,5 @@
+// ================ INDEX PAGE ===================
+
 body {
   background-color: #B82C11;
 }
@@ -23,6 +25,20 @@ body {
 
 .navbar-header-link h3:hover, .navbar-header-link h3:active, .navbar-header-link h3:visited {
   text-decoration: none;
+}
+
+.footer {
+  height: 100px;
+  background-color: #333333;
+
+}
+
+.footer-text {
+  color: #FCDED4;
+  font-family: 'Droid Serif', serif;
+  font-size: 16px;
+  text-align: center;
+  margin-top: 40px;
 }
 
 
@@ -82,20 +98,7 @@ body {
   }
 }
 
-.section-head {
-  text-align: center;
-  height: 0px;
-
-  .glyphicon-triangle-bottom {
-    color: #B82C11;
-    font-size: 40px;
-    text-align: center;
-    height: 0px;
-    line-height: .75;
-  }
-}
-
-
+// ================ HOME PAGE ===================
 
 .hero-content {
   margin-top: 0px;
@@ -109,7 +112,7 @@ body {
     padding-bottom: 0px;
     opacity: .50;
     margin-bottom: 5px;
-}
+  }
 
     .countdown {
       color: #FCDED4;
@@ -118,12 +121,12 @@ body {
       padding-top: 0px;
       margin-top: 0px;
       opacity: .75;
+    }
 
       h3 {
         font-family: 'Droid Serif', serif; 
+    
       }
-
-  }
 
       .btn-default {
         background-color: #B82C11;
@@ -134,26 +137,58 @@ body {
         background-color: #FCDED4;
         color: black;
       }
-
 }
-
 
 .start-button {
   padding-top: 0px;
   padding-bottom: 80px;
 }
 
+.section-head {
+  text-align: center;
+  height: 0px;
+
+  .glyphicon-triangle-bottom {
+    color: #B82C11;
+    font-size: 50px;
+    text-align: center;
+    height: 0px;
+    line-height: .65;
+  }
+}
+
+// ================ INFO PAGE ===================
+
+.section-head {
+  text-align: center;
+  height: 0px;
+
+  .glyphicon-triangle-bottom {
+    font-size: 50px;
+    text-align: center;
+    height: 0px;
+    line-height: .65;
+  }
+}
+
+.github-icon {
+  height: 60px;
+  width: 60px;
+  margin-right: 25px;
+  margin-bottom: 25px;
+}
+
+
+
 .second-section {
   padding-top: 20px;
   margin-top: 5px;
-  background-color: #403E3D;
+  background-color: #FCDED4;
 
   .dashboard-container {
     margin-top: 10px;
     padding-top: 10px;
     font-family: 'Roboto', sans-serif;
-    color: white;
-    opacity: .50;
     font-size: 24px;
     border: none;
  }
@@ -172,27 +207,21 @@ body {
 
     input {
       border: none;
-      background-color: #403E3D;
-    }
-
-    tr {
-      border: none;
+      background-color: #FCDED4;
     }
 }
 
-  .third-section {
+  .pomodoro {
   padding-top: 20px;
   margin-top: 5px;
-  background-color: #fcf5e3;
+  background-color: #FCDED4;
 
     h5 {
     font-size: 24px;
     text-align: center;
     font-family: 'Droid Serif', serif;
     padding-top: 0px;
-    padding-bottom: 60px;
-    
-   
+    padding-bottom: 60px;   
   }
     h2 {
     font-size: 60px;
@@ -208,6 +237,7 @@ body {
       font-family: 'Oswald', sans-serif;
       font-style: bold;
       font-size: 24px;
+      color: #B82C11;
     }
 
     p {
@@ -219,25 +249,25 @@ body {
 
 .glyphicon-time {
   font-size: 90px;
-  color: #B82C11;
+  color: #fcf5e3;
   opacity: .5;
 }
 
 .glyphicon-fire {
   font-size: 90px;
-  color: #B82C11;
+  color: #fcf5e3;
   opacity: .5;
 }
 
 .glyphicon-phone {
   font-size: 90px;
-  color: #B82C11;
+  color: #fcf5e3;
   opacity: .5;
 }
 
 .glyphicon-home {
   font-size: 90px;
-  color: #B82C11;
+  color: #fcf5e3;
   opacity: .5;
 }
 
@@ -259,6 +289,69 @@ body {
   }
 }
 
+  .pulse-pause {
+  padding-top: 20px;
+  margin-top: 5px;
+  background-color: #fcf5e3;
+
+  a {
+    color: #000000;
+  }
+
+  #pulse-desc {
+    text-align: center;
+    color: orange;
+    font-size: 44px;
+    font-style: bold;
+  }
+
+  .short-message {
+    font-size: 30px;
+
+  }
+
+    h5 {
+    font-size: 24px;
+    text-align: center;
+    font-family: 'Droid Serif', serif;
+    padding-top: 0px;
+    padding-bottom: 60px;
+    line-height: 1.5;
+    
+  }
+    h2 {
+    font-size: 60px;
+    text-align: center;
+    font-family: 'Droid Serif', serif;
+    padding-top: 40px;
+    padding-bottom: 0px;
+    color: #B82C11;
+    }
+
+    h3 {
+      padding-bottom: 20px;
+      font-family: 'Oswald', sans-serif;
+      font-style: bold;
+      font-size: 24px;
+      color: #FCDED4;
+
+    }
+
+    p {
+      padding-bottom: 50px;
+      font-family: 'Droid Serif', serif;
+      font-size: 16px;
+      color: #B82C11;
+    }
+
+    .social-highlight {
+    color: #B82C11;
+    }
+
+    .click-start {
+
+    }
+}
 
   //font-family: font-family: 'Josefin Sans', sans-serif;
   //color: #FCDED4;

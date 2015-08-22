@@ -62,7 +62,7 @@ module.exports = function(grunt) {
                     expand: true,
                     src: [ './**/*.png', './**/*.jpg' ],
                     dest: './dist/images',
-                    cwd: './app/assets/'
+                    cwd: './app/assets/images'
                 }, {
                     expand: true,
                     src: [ './**/*.mp3' ],
@@ -75,7 +75,7 @@ module.exports = function(grunt) {
                     cwd: './app/pages/'
                 }, {
                     expand: true,
-                    src: [ './**/*.html' ],
+                    src: [ './**/*.html'],
                     dest: './dist/templates',
                     cwd: './app/templates'
                 }]

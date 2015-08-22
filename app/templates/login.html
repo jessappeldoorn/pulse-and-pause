@@ -56,7 +56,9 @@
 
 
 
-
+<!--   <div class="section-head">     
+    <div id="pulse-pause-triangle"class="glyphicon glyphicon-triangle-bottom"></div>
+  </div>
 
 
 
@@ -91,36 +93,7 @@
     </div> <!-- end of row -->
   </div> <!-- end of container -->
 
-    <div id="Info" class="second-section">
-  
-    <div id="tasks" class="container">
-      <div class="dashboard-container" ng-controller="Home.controller">
-        <div class="row">
-          <div class="col-lg-12">
-            <table class = "table">
-              <thead>
-                <tr>
-                  <th class="table-heading">Date</th>
-                  <th class="table-heading">Task</th>
-                  <th class="table-heading">Sessions</th>
-                  <th class="table-heading">Comments</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="table-hover" ng-repeat="task in tasks | orderBy: '-created'">          
-                  <td class="table-data"> {{ task.created | date: 'mediumDate' }}</td>
-                  <td class="table-data"> {{ task.name }} </td>
-                  <td class="table-data" ng-model="newTask"> {{ task.session }} </td>
-                  <td class="table-data"><input class="comments" type="text" placeholder="enter comments..."></td>
-                </tr>
-              </tbody>
-          </table>
-          </div> 
-        </div> 
-      </div> 
-    </div>
 
-  </div>
 
 
 
