@@ -12,7 +12,7 @@ var app = angular.module("Pulseandpause", ["firebase", "ui.router"]);
 
    $stateProvider.state('dashboard', {
      url: '/dashboard',
-     controller: 'Home.controller',
+     controller: 'Login.controller',
      templateUrl: '/templates/dashboard.html',
      authRequired: true,
      resolve: {
@@ -28,24 +28,16 @@ var app = angular.module("Pulseandpause", ["firebase", "ui.router"]);
      templateUrl: '/templates/login.html'
    });
 
-
-    $stateProvider.state('account', {
-     url: '/account',
-     controller: 'Login.controller',
-     templateUrl: '/templates/account.html'
-   });
-
-    $stateProvider.state('timer', {
-     url: '/timer',
+    $stateProvider.state('info', {
+     url: '/info',
      controller: 'Home.controller',
-     templateUrl: '/templates/timer.html'
+     templateUrl: '/templates/info.html'
    });
-
 
  }]);
 
 // home controller
-app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$timeout', function($scope, $firebaseArray, $interval, $timeout){
+app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$timeout', 'Auth', function($scope, $firebaseArray, $interval, $timeout, Auth){
   
   var ref = new Firebase("https://pulseandpause.firebaseio.com"),
   fireTime = Firebase.ServerValue.TIMESTAMP,
@@ -140,7 +132,7 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
 
     var timeStart = undefined,
     time = undefined;
-    timeEnd = new Date().setMilliseconds(2000); //1502000
+    timeEnd = new Date().setMilliseconds(1502000); //1502000
     
     counter = $interval(function(){ 
       if($scope.timer.working === true){
@@ -173,7 +165,7 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
 
     if($scope.timer.session <= 3) {
       console.log("On a short break" + " " + $scope.timer.session);
-      timeEnd = new Date().setMilliseconds(2000); //302000
+      timeEnd = new Date().setMilliseconds(302000); //302000
       $scope.timer.mode = "Stop";   
     } else {
        console.log("On a long break" + " " + $scope.timer.session);
@@ -220,6 +212,19 @@ app.controller('Home.controller', ['$scope', '$firebaseArray', '$interval', '$ti
   };
 
 
+  Auth.$onAuth(function(authData) {
+    $scope.authData = authData;
+    console.log(authData);
+
+    // if (authData) {
+    //   getUserData();
+    // }
+  });
+    $scope.logout = function() {
+    Auth.$unauth();
+  };
+
+
 
 }]);
 
@@ -263,14 +268,14 @@ var data = {
     labels : ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
     datasets : [
         {
-            fillColor : "rgba(99,123,133,0.4)",
+            fillColor : "rgba(76,36,49,0.7)",
             strokeColor : "rgba(220,220,220,1)",
             pointColor : "rgba(220,220,220,1)",
             pointStrokeColor : "#fff",
             data : [65,54,30,81,56,55,40]
         },
         {
-            fillColor : "rgba(219,186,52,0.4)",
+            fillColor : "rgba(167,147,166,0.7)",
             strokeColor : "rgba(220,220,220,1)",
             pointColor : "rgba(220,220,220,1)",
             pointStrokeColor : "#fff",
@@ -310,20 +315,31 @@ app.controller('Login.controller', ['$scope', '$firebaseArray', 'Auth', function
   Auth.$onAuth(function(authData) {
     $scope.authData = authData;
     console.log(authData);
-
-    // if (authData) {
-    //   getUserData();
-    // }
   });
 
- 
-
-  $scope.login = function() {
+  $scope.loginFacebook = function() {
     Auth.$authWithOAuthPopup("facebook").catch(function(error) {
       console.error(error);
     });
   };
 
+   $scope.loginTwitter= function() {
+    Auth.$authWithOAuthPopup("twitter").catch(function(error) {
+      console.error(error);
+    });
+  };
+
+   $scope.loginGithub= function() {
+    Auth.$authWithOAuthPopup("github").catch(function(error) {
+      console.error(error);
+    });
+  };
+
+     $scope.loginGoogle= function() {
+    Auth.$authWithOAuthPopup("google").catch(function(error) {
+      console.error(error);
+    });
+  };
   $scope.logout = function() {
     Auth.$unauth();
   };
@@ -361,104 +377,12 @@ function getName(authData) {
        return authData.twitter.displayName;
      case 'facebook':
        return authData.facebook.displayName;
+     case 'github':
+       return authData.github.displayName;
+     case 'google':
+       return authData.google.displayName;
   }
 }
-
-//   $scope.authObj.$authWithPassword({
-//     email    : "bobtony@firebase.com",
-//     password : "correcthorsebatterystaple"
-//   }).then(function(authData) {
-//     // User Authenticated
-//   }).catch(function(error) {
-//     // Authentication error
-//   });
-
-// $scope.authObj.$onAuth(function(authData) {
-//   if (authData) {
-//     // User logged in
-//   } else {
-//     // User logged out
-//   }
-// });
-
-// $scope.authObj.ref.$createUser({
-//   email: "bobtony@firebase.com",
-//   password: "correcthorsebatterystaple"
-// }).then(function(userData) {
-//   // User Created
-// }).catch(function(error) {
-//   // Error creating user
-// });
-
-
-
-// $scope.createUser = function() {
-
-//     ref.createUser({
-//     email    : "bobtony@firebase.com",
-//     password : "correcthorsebatterystaple"
-//   }, function(error, userData) {
-//     if (error) {
-//       console.log("Error creating user:", error);
-//     } else {
-//       console.log("Successfully created user account with uid:", userData.uid);
-//     }
-//   });
-
-// };
-
-// $scope.userLogin = function() {
-
-//   ref.authWithPassword({
-//     email    : "bobtony@firebase.com",
-//     password : "correcthorsebatterystaple"
-//   }, function(error, authData) {
-//     if (error) {
-//       console.log("Login Failed!", error);
-//     } else {
-//       console.log("Authenticated successfully with payload:", authData);
-//     }
-
-//   });
-
-// };
-
-
-
-
-// $scope.SignIn = function(event) {
-//     event.preventDefault();  // To prevent form refresh
-//     var username = $scope.user.email;
-//     var password = $scope.user.password;
-     
-//     loginObj.$login('password', {
-//             email: username,
-//             password: password
-//         })
-//         .then(function(user) {
-//             // Success callback
-//             console.log('Authentication successful');
-//         }, function(error) {
-//             // Failure callback
-//             console.log('Authentication failure');
-//         });
-// }
-
-
-
-// create a synchronized (psuedo read-only) array
-  // $scope.user = $firebaseArray(ref);
-
-  // $scope.createUser = function() {
-  //   var newUser = {
-  //     email: $scope.userEmail,
-  //     password: $scope.userPassword
-  //   };
-
-  //   $scope.user.$add(newUser);
-  //   $scope.userEmail = "";
-  //   $scope.userPassword = "";
-  // }
 
 }]);
 

@@ -87,7 +87,7 @@ a:focus {
     color: #FCDED4; }
   .hero-content .btn-default:hover {
     background-color: #FCDED4;
-    color: black; }
+    color: #B82C11; }
 
 .start-button {
   padding-top: 0px;
@@ -119,9 +119,9 @@ a:focus {
   margin-bottom: 25px; }
 
 .second-section {
+  color: #FCDED4;
   padding-top: 20px;
-  margin-top: 5px;
-  background-color: #FCDED4; }
+  margin-top: 5px; }
   .second-section .dashboard-container {
     margin-top: 10px;
     padding-top: 10px;
@@ -137,7 +137,7 @@ a:focus {
     border-top: none; }
   .second-section input {
     border: none;
-    background-color: #FCDED4; }
+    background-color: #B82C11; }
 
 .pomodoro {
   padding-top: 20px;
@@ -167,24 +167,31 @@ a:focus {
     font-family: 'Droid Serif', serif;
     font-size: 16px; }
 
+.web-link {
+  color: #333333; }
+
+.web-link:hover {
+  color: #B82C11;
+  text-decoration: none; }
+
 .glyphicon-time {
   font-size: 90px;
-  color: #fcf5e3;
+  color: #ED6E55;
   opacity: .5; }
 
 .glyphicon-fire {
   font-size: 90px;
-  color: #fcf5e3;
+  color: #ED6E55;
   opacity: .5; }
 
 .glyphicon-phone {
   font-size: 90px;
-  color: #fcf5e3;
+  color: #ED6E55;
   opacity: .5; }
 
 .glyphicon-home {
   font-size: 90px;
-  color: #fcf5e3;
+  color: #ED6E55;
   opacity: .5; }
 
 .col-md-3 {
@@ -202,15 +209,34 @@ a:focus {
   padding-top: 20px;
   margin-top: 5px;
   background-color: #fcf5e3; }
-  .pulse-pause a {
-    color: #000000; }
-  .pulse-pause #pulse-desc {
+  .pulse-pause p {
+    color: #fff; }
+  .pulse-pause #info-pulse-and-pause p {
     text-align: center;
     color: orange;
     font-size: 44px;
     font-style: bold; }
+  .pulse-pause .pulse-how-to p {
+    color: #fff;
+    font-size: 50px; }
+  .pulse-pause .how-to {
+    color: #fff; }
+  .pulse-pause .info {
+    color: #333333; }
+  .pulse-pause .info:hover {
+    color: #B82C11; }
+  .pulse-pause .web-link:hover {
+    color: #B82C11; }
   .pulse-pause .short-message {
-    font-size: 30px; }
+    font-size: 30px;
+    margin-bottom: 40px; }
+  .pulse-pause .social-link {
+    color: #B82C11; }
+  .pulse-pause .social-link:hover {
+    color: #333333;
+    font-style: bold; }
+  .pulse-pause a:hover {
+    text-decoration: none; }
   .pulse-pause h5 {
     font-size: 24px;
     text-align: center;
@@ -260,3 +286,48 @@ a:focus {
 
 .todo-session {
   margin-right: 0 auto; }
+
+#dashboard-details {
+  background-color: #B82C11;
+  padding-top: 0px;
+  margin-top: 0px;
+  opacity: .75; }
+  #dashboard-details h1 {
+    text-align: center;
+    color: #FCDED4;
+    font-family: 'Oswald', sans-serif;
+    font-size: 75px; }
+  #dashboard-details h3 {
+    text-align: center;
+    color: #FCDED4;
+    font-family: 'Oswald', sans-serif;
+    font-size: 25px; }
+
+#donut h3 {
+  text-align: center;
+  color: #FCDED4; }
+
+#line h3 {
+  text-align: center;
+  color: #FCDED4; }
+
+#login-button {
+  padding-right: 15px; }
+
+#pp-description {
+  text-align: center;
+  color: #FCDED4;
+  font-family: 'Droid Serif', serif;
+  font-size: 16px;
+  opacity: .75;
+  margin-bottom: 75px; }
+
+.logout-button {
+  margin-top: 50px;
+  text-align: center; }
+  .logout-button .btn-default {
+    background-color: #B82C11;
+    color: #FCDED4; }
+  .logout-button .btn-default:hover {
+    background-color: #FCDED4;
+    color: #B82C11; }

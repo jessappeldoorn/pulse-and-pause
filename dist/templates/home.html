@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col-lg-6 col-lg-offset-3">
        <!-- Add a task -->
-        <form class="input-group" ng-hide="authData !== 'null'" ng-submit="toggleTimer()" ng-hide="timer.session">
+        <form class="input-group" ng-show="authData" ng-submit="toggleTimer()" ng-hide="timer.session">
           <input type="text" ng-model="newTaskText" class="form-control" aria-label="Task" placeholder="Enter a label for this work session...">
             <div class="input-group-btn">
               <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
@@ -19,7 +19,9 @@
       </div> <!-- end of col-lg-6 -->
     </div> <!-- end of row -->
   </div> <!-- end of container -->
+
   </br>
+
   <div class="start-button">
     <button class="btn btn-default" type="submit" ng-click="toggleTimer()"> {{ timer.mode }} </button>
   </div> <!-- end of start-button -->
@@ -28,38 +30,27 @@
 <div class="section-head">     
   <div class="glyphicon glyphicon-triangle-bottom"></div>
 </div>
+
 <div id="theApp" class="pulse-pause">
   <div class="container">
     <div class="row">
-    <h2>How to start.</h2>
-
+      <h2>How to start.</h2>
       <div class="col-lg-6 col-lg-offset-3">
-       <h5>To save your sessions and view your Dashboard, <a ui-sref="login"><span class="social-highlight">Login</span></a>  with Facebook, Twitter, Github, or Google.</h5>
+       <h5>To save your sessions and view your Dashboard, <a ui-sref="dashboard"><span class="social-link">Login</span></a>  with Facebook, Twitter, Github, or Google.</h5>
       </div>
-
       <div class="col-lg-4 col-lg-offset-4">      
-        <a ui-sref="login"><img class="github-icon" src="images/facebook.png"></a>
-        <a ui-sref="login"><img class="github-icon" src="images/twitter.png"></a>
-        <a ui-sref="login"><img class="github-icon" src="images/github.png"></a>
-        <a ui-sref="login"><img class="github-icon" src="images/google.png"></a>     
+        <a ui-sref="dashboard"><img class="github-icon" src="images/facebook.png"></a>
+        <a ui-sref="dashboard"><img class="github-icon" src="images/twitter.png"></a>
+        <a ui-sref="dashboard"><img class="github-icon" src="images/github.png"></a>
+        <a ui-sref="dashboard"><img class="github-icon" src="images/google.png"></a>     
       </div>
-
     </div>
-
     </br>
-
     <div class="row">
       <div class="col-md-8 col-md-offset-2">  
         <h5>OR, just click the <i><span class="click-start">start</span></i> button above, to begin working & breaking in timed intervals.</h5>  
-        <h2 class="short-message">For more information, check out the <a ui-sref="timer">Info</a> section.</h2>  
+        <h2 class="short-message">For more information, check out the <a class="info" ui-sref="info">Info</a> section.</h2>  
       </div>
     </div>
   </div>
 </div>
-
-
-
-
-
-
-

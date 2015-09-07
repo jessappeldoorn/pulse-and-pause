@@ -135,7 +135,7 @@ body {
 
       .btn-default:hover {
         background-color: #FCDED4;
-        color: black;
+        color: #B82C11;
       }
 }
 
@@ -178,12 +178,10 @@ body {
   margin-bottom: 25px;
 }
 
-
-
 .second-section {
+  color: #FCDED4;
   padding-top: 20px;
   margin-top: 5px;
-  background-color: #FCDED4;
 
   .dashboard-container {
     margin-top: 10px;
@@ -207,7 +205,7 @@ body {
 
     input {
       border: none;
-      background-color: #FCDED4;
+      background-color: #B82C11;
     }
 }
 
@@ -247,27 +245,37 @@ body {
     }
 }
 
+.web-link {
+  color: #333333;;
+
+}
+
+.web-link:hover {
+    color: #B82C11;
+      text-decoration: none;
+}
+
 .glyphicon-time {
   font-size: 90px;
-  color: #fcf5e3;
+  color: #ED6E55;
   opacity: .5;
 }
 
 .glyphicon-fire {
   font-size: 90px;
-  color: #fcf5e3;
+  color: #ED6E55;
   opacity: .5;
 }
 
 .glyphicon-phone {
   font-size: 90px;
-  color: #fcf5e3;
+  color: #ED6E55;
   opacity: .5;
 }
 
 .glyphicon-home {
   font-size: 90px;
-  color: #fcf5e3;
+  color: #ED6E55;
   opacity: .5;
 }
 
@@ -294,20 +302,52 @@ body {
   margin-top: 5px;
   background-color: #fcf5e3;
 
-  a {
-    color: #000000;
+  p {
+    color: #fff;
   }
 
-  #pulse-desc {
+  #info-pulse-and-pause p{
     text-align: center;
     color: orange;
     font-size: 44px;
     font-style: bold;
   }
 
+  .pulse-how-to p{
+    color: #fff;
+    font-size: 50px;
+  }
+
+  .how-to {
+    color: #fff;
+  }
+
+  .info {
+    color: #333333;
+  }
+
+  .info:hover {
+    color: #B82C11;
+  }
+
+  .web-link:hover {
+    color: #B82C11;
+  }
   .short-message {
     font-size: 30px;
+    margin-bottom: 40px;
 
+  }
+  .social-link {
+    color: #B82C11;
+  }
+  .social-link:hover {
+    color: #333333;
+    font-style: bold;
+  }
+
+  a:hover {
+    text-decoration: none;
   }
 
     h5 {
@@ -382,6 +422,7 @@ body {
     }
   }
 
+
   .task-label {
     color: #FCDED4;
     font-family: 'Droid Serif', serif;
@@ -391,3 +432,63 @@ body {
  .todo-session {
   margin-right: 0 auto;
  }
+
+ #dashboard-details {
+      background-color: #B82C11;
+      padding-top: 0px;
+      margin-top: 0px;
+      opacity: .75;
+
+      h1 {
+      text-align: center;
+      color: #FCDED4;
+      font-family: 'Oswald', sans-serif;
+      font-size: 75px;        
+      }
+
+      h3 {
+      text-align: center;
+      color: #FCDED4;
+      font-family: 'Oswald', sans-serif;
+      font-size: 25px;        
+      }
+ }
+
+ #donut h3 {
+  text-align: center;
+  color: #FCDED4;
+ }
+
+ #line h3 {
+  text-align: center;
+  color: #FCDED4;
+ }
+ #login-button {
+  padding-right: 15px;
+ }
+
+ #pp-description {
+      text-align: center;
+      color: #FCDED4;
+      font-family: 'Droid Serif', serif;
+      font-size: 16px; 
+      opacity: .75;
+      margin-bottom: 75px;
+ }
+
+ .logout-button {
+    margin-top: 50px;
+    text-align: center;
+
+    .btn-default {
+      background-color: #B82C11;
+      color: #FCDED4;
+     }
+       .btn-default:hover {
+        background-color: #FCDED4;
+        color: #B82C11;
+      }
+}
+
+
+
